@@ -1,7 +1,9 @@
+import '../picker/user_image_picker.dart';
 import 'package:flutter/material.dart';
 
 class AuthForm extends StatefulWidget {
-  AuthForm(this.submitFn);
+  AuthForm(this.submitFn, this.isLoading);
+  final bool isLoading;
   final void Function(String email, String password, String userName,
       bool isLogin, BuildContext ctx) submitFn;
   @override
@@ -39,68 +41,75 @@ class _AuthFormState extends State<AuthForm> {
           padding: EdgeInsets.all(16),
           child: Form(
             key: _formKey,
-            child: Column(mainAxisSize: MainAxisSize.min, children: [
-              TextFormField(
-                key: ValueKey('email'),
-                validator: (value) {
-                  if (value.isEmpty || !value.contains('@')) {
-                    return 'please enter a valid email address';
-                  }
-                  return null;
-                },
-                keyboardType: TextInputType.emailAddress,
-                decoration: InputDecoration(labelText: 'Email address'),
-                onSaved: (value) {
-                  _userEmail = value;
-                },
-              ),
-              if (!_isLogin)
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                UserImagePicker(),
                 TextFormField(
-                  key: ValueKey('username'),
+                  key: ValueKey('email'),
                   validator: (value) {
-                    if (value.isEmpty || value.length < 4) {
-                      return 'User name must be 4 charecters atleast.';
+                    if (value.isEmpty || !value.contains('@')) {
+                      return 'please enter a valid email address';
                     }
                     return null;
                   },
-                  decoration: InputDecoration(labelText: 'Username'),
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: InputDecoration(labelText: 'Email address'),
                   onSaved: (value) {
-                    _userName = value;
+                    _userEmail = value;
                   },
                 ),
-              TextFormField(
-                key: ValueKey('password'),
-                validator: (value) {
-                  if (value.isEmpty || value.length < 7) {
-                    return 'please enter at least 7 charecters.';
-                  }
-                  return null;
-                },
-                decoration: InputDecoration(labelText: 'Password'),
-                obscureText: true,
-                onSaved: (value) {
-                  _userPassword = value;
-                },
-              ),
-              SizedBox(
-                height: 12,
-              ),
-              RaisedButton(
-                child: Text(_isLogin ? 'login' : 'Signup'),
-                onPressed: _trySubmit,
-              ),
-              FlatButton(
-                textColor: Theme.of(context).primaryColor,
-                child: Text(_isLogin
-                    ? 'Create new account'
-                    : 'I already have an account'),
-                onPressed: () {
-                  setState(() {
-                    _isLogin = !_isLogin;
-                  });
-                },
-              )
-            ]),
+                if (!_isLogin)
+                  TextFormField(
+                    key: ValueKey('username'),
+                    validator: (value) {
+                      if (value.isEmpty || value.length < 4) {
+                        return 'User name must be 4 charecters atleast.';
+                      }
+                      return null;
+                    },
+                    decoration: InputDecoration(labelText: 'Username'),
+                    onSaved: (value) {
+                      _userName = value;
+                    },
+                  ),
+                TextFormField(
+                  key: ValueKey('password'),
+                  validator: (value) {
+                    if (value.isEmpty || value.length < 7) {
+                      return 'please enter at least 7 charecters.';
+                    }
+                    return null;
+                  },
+                  decoration: InputDecoration(labelText: 'Password'),
+                  obscureText: true,
+                  onSaved: (value) {
+                    _userPassword = value;
+                  },
+                ),
+                SizedBox(
+                  height: 12,
+                ),
+                if (widget.isLoading) CircularProgressIndicator(),
+                if (!widget.isLoading)
+                  RaisedButton(
+                    child: Text(_isLogin ? 'login' : 'Signup'),
+                    onPressed: _trySubmit,
+                  ),
+                if (!widget.isLoading)
+                  FlatButton(
+                    textColor: Theme.of(context).primaryColor,
+                    child: Text(_isLogin
+                        ? 'Create new account'
+                        : 'I already have an account'),
+                    onPressed: () {
+                      setState(() {
+                        _isLogin = !_isLogin;
+                      });
+                    },
+                  )
+              ],
+            ),
           ),
         ),
       ),
