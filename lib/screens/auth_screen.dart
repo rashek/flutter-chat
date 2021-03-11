@@ -15,8 +15,17 @@ class AuthScreen extends StatefulWidget {
 
 class _AuthScreenState extends State<AuthScreen> {
   var _isLoading = false;
-  @override
   final _auth = FirebaseAuth.instance;
+
+  void _createUser(
+      String email, String uid, String username, String url) async {
+    await Firestore.instance.collection('user').document(uid).setData({
+      'username': username,
+      'email': email,
+      'image_url': url,
+    });
+  }
+
   void _submitAuthForm(
     String email,
     String username,
@@ -44,15 +53,7 @@ class _AuthScreenState extends State<AuthScreen> {
         await ref.putFile(image).onComplete;
 
         final url = await ref.getDownloadURL();
-
-        await Firestore.instance
-            .collection('user')
-            .document(authResult.user.uid)
-            .setData({
-          'username': username,
-          'email': email,
-          'image_url': url,
-        });
+        _createUser(email, authResult.user.uid, username, url);
       }
     } on PlatformException catch (err) {
       var message = 'An error';

@@ -8,6 +8,10 @@ class AuthGmail extends StatefulWidget {
 class _AuthGmailState extends State<AuthGmail> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Container(
+      child: OutlinedButton(
+        child: Text('Login with Gmail'),
+      ),
+    );
   }
 }
