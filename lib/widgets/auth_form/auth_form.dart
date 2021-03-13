@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 
 import '../picker/user_image_picker.dart';
+import '../auth_form/auth_gmail.dart';
 
 class AuthForm extends StatefulWidget {
   AuthForm(this.submitFn, this.isLoading);
@@ -28,7 +29,7 @@ class _AuthFormState extends State<AuthForm> {
     final isValid = _formKey.currentState.validate();
     FocusScope.of(context).unfocus();
     if (_userImageFile == null && !_isLogin) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      Scaffold.of(context).showSnackBar(SnackBar(
         content: Text('PLease pick a image.'),
         backgroundColor: Theme.of(context).errorColor,
       ));
@@ -122,7 +123,8 @@ class _AuthFormState extends State<AuthForm> {
                         _isLogin = !_isLogin;
                       });
                     },
-                  )
+                  ),
+                AuthGmail(),
               ],
             ),
           ),
