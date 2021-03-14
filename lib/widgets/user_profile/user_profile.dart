@@ -8,13 +8,28 @@ class UserProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        CircleAvatar(
-          backgroundImage: NetworkImage(userImage),
-        ),
-        Text(username),
-      ],
+    if (!isMe)
+      return Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            children: [
+              CircleAvatar(
+                backgroundImage: NetworkImage(userImage),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 5),
+                child: Text(
+                  username,
+                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                ),
+              ),
+            ],
+          ));
+    return Padding(
+      padding: const EdgeInsets.all(0.0),
+      // child: Row(
+      //   children: [],
+      // )
     );
   }
 }

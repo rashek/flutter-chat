@@ -11,7 +11,7 @@ class UserScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('FlutterChat'),
+        title: Text('dasd'),
         actions: [
           DropdownButton(
             icon: Icon(Icons.more_vert,
