@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-// import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import '../widgets/chat/messages.dart';
 import '../widgets/chat/new_message.dart';
 
 class ChatScreen extends StatelessWidget {
+  final GoogleSignIn googleSignIn = GoogleSignIn();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,6 +35,8 @@ class ChatScreen extends StatelessWidget {
             onChanged: (itemIdentifier) {
               if (itemIdentifier == 'Logout') {
                 FirebaseAuth.instance.signOut();
+                googleSignIn.disconnect();
+                googleSignIn.signOut();
               }
             },
           ),

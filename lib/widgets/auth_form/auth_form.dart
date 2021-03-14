@@ -2,13 +2,18 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 
 import '../picker/user_image_picker.dart';
-import '../auth_form/auth_gmail.dart';
 
 class AuthForm extends StatefulWidget {
   AuthForm(this.submitFn, this.isLoading);
   final bool isLoading;
-  final void Function(String email, String password, String userName,
-      File image, bool isLogin, BuildContext ctx) submitFn;
+  final void Function(
+    String email,
+    String password,
+    String userName,
+    File image,
+    bool isLogin,
+    BuildContext ctx,
+  ) submitFn;
   @override
   _AuthFormState createState() => _AuthFormState();
 }
@@ -29,7 +34,7 @@ class _AuthFormState extends State<AuthForm> {
     final isValid = _formKey.currentState.validate();
     FocusScope.of(context).unfocus();
     if (_userImageFile == null && !_isLogin) {
-      Scaffold.of(context).showSnackBar(SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text('PLease pick a image.'),
         backgroundColor: Theme.of(context).errorColor,
       ));
@@ -108,13 +113,17 @@ class _AuthFormState extends State<AuthForm> {
                 ),
                 if (widget.isLoading) CircularProgressIndicator(),
                 if (!widget.isLoading)
-                  RaisedButton(
+                  ElevatedButton(
                     child: Text(_isLogin ? 'login' : 'Signup'),
                     onPressed: _trySubmit,
                   ),
                 if (!widget.isLoading)
-                  FlatButton(
-                    textColor: Theme.of(context).primaryColor,
+                  TextButton(
+                    // style: ButtonStyle(
+                    //   color: Theme.of(context).primaryColor,
+                    // ),
+                    style: TextButton.styleFrom(
+                        primary: Theme.of(context).primaryColor),
                     child: Text(_isLogin
                         ? 'Create new account'
                         : 'I already have an account'),
@@ -123,8 +132,7 @@ class _AuthFormState extends State<AuthForm> {
                         _isLogin = !_isLogin;
                       });
                     },
-                  ),
-                AuthGmail(),
+                  )
               ],
             ),
           ),
