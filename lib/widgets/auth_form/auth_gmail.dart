@@ -22,7 +22,7 @@ class _AuthGmailState extends State<AuthGmail> {
 
   // @override
   Future<FirebaseUser> handleSignIn() async {
-    this.setState(() {
+    setState(() {
       isLoading = true;
     });
 
@@ -43,9 +43,7 @@ class _AuthGmailState extends State<AuthGmail> {
           .where('id', isEqualTo: fireUser.uid)
           .getDocuments();
       final List<DocumentSnapshot> documents = result.documents;
-      this.setState(() {
-        isLoading = false;
-      });
+
       if (documents.length == 0) {
         // Update data to server if new user
         widget.createFn(
@@ -54,15 +52,11 @@ class _AuthGmailState extends State<AuthGmail> {
           fireUser.displayName,
           fireUser.photoUrl,
         );
-
-        // Write data to local
-        // currentUser = firebaseUser;
-        // await prefs.setString('id', currentUser.uid);
-        // await prefs.setString('nickname', currentUser.displayName);
-        // await prefs.setString('photoUrl', currentUser.photoURL);
-
       }
     }
+    setState(() {
+      isLoading = false;
+    });
     return fireUser;
   }
 
