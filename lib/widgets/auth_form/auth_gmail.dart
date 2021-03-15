@@ -39,7 +39,7 @@ class _AuthGmailState extends State<AuthGmail> {
 
     if (fireUser != null) {
       final QuerySnapshot result = await Firestore.instance
-          .collection('users')
+          .collection('user')
           .where('id', isEqualTo: fireUser.uid)
           .getDocuments();
       final List<DocumentSnapshot> documents = result.documents;

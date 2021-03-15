@@ -10,7 +10,7 @@ class UserScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('dasd'),
+          title: Text('Chat Window'),
           actions: [
             DropdownButton(
               icon: Icon(Icons.more_vert,

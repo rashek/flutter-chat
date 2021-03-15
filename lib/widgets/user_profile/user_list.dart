@@ -5,21 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import './my_profile.dart';
 import './profile_card.dart';
 
-class UserList extends StatefulWidget {
-  @override
-  _UserListState createState() => _UserListState();
-}
-
-class _UserListState extends State<UserList> {
-  String myusername;
-  String myuserImage;
-  Future<void> myprof(val1, val2) async {
-    this.setState(() {
-      myusername = val1;
-      myuserImage = val2;
-    });
-  }
-
+class UserList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -41,17 +27,11 @@ class _UserListState extends State<UserList> {
                 }
                 final userDoc = userSnapshot.data.documents;
                 final myuid = futureSnapshot.data.uid;
-                for (int i = 0; i < userDoc.length; i++) {
-                  if (userDoc[i]['uid'] == myuid) {
-                    // print(userDoc[i]['image_url']);
-                    myprof(userDoc[i]['username'], userDoc[i]['image_url']);
-                  }
-                }
                 return SingleChildScrollView(
                   physics: NeverScrollableScrollPhysics(),
                   child: Column(
                     children: [
-                      MyProfile(myusername, myuserImage),
+                      MyProfile(myuid),
                       Container(
                         child: ListView.builder(
                           itemCount: userDoc.length,
