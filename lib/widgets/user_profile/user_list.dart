@@ -46,6 +46,8 @@ class UserList extends StatelessWidget {
                             userDoc[index]['username'],
                             userDoc[index]['uid'] == myuid,
                             userDoc[index]['image_url'],
+                            myuid,
+                            userDoc[index]['uid'],
                           ),
                           shrinkWrap: true,
                         ),
