@@ -1,4 +1,5 @@
 import 'package:chat/widgets/chat/messages.dart';
+import 'package:chat/widgets/chat/new_message.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -39,7 +40,8 @@ class MyApp extends StatelessWidget {
               return AuthScreen();
             }),
         routes: {
-          ChatScreen.routeName: (context) => ChatScreen(),
+          ChatScreen.routeName: (ctx) => ChatScreen(),
+          NewMessage.routeName: (ctx) => NewMessage(),
         });
   }
 }
