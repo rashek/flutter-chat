@@ -5,13 +5,18 @@ class MyProfile extends StatelessWidget {
   MyProfile(this.myid);
   final String myid;
 
+  Future<QuerySnapshot> _fetchuser() async {
+    var a = await Firestore.instance
+        .collection('user')
+        .where('uid', isEqualTo: myid)
+        .getDocuments();
+    return a;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-        stream: Firestore.instance
-            .collection('user')
-            .where('uid', isEqualTo: myid)
-            .snapshots(),
+    return FutureBuilder(
+        future: _fetchuser(),
         builder: (ctx, userSnapshot) {
           if (userSnapshot.connectionState == ConnectionState.waiting) {
             return Center(
@@ -19,6 +24,7 @@ class MyProfile extends StatelessWidget {
             );
           }
           final userDoc = userSnapshot.data.documents;
+          // print(userDoc.length);
           return Container(
             // height: 100,
             padding: EdgeInsets.only(top: 8),
