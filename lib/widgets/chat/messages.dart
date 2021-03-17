@@ -5,9 +5,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../chat/message_bubble.dart';
 
 class Messages extends StatelessWidget {
-  Messages(this.myId, this.peerId);
+  Messages(this.myId, this.peerId, this.myName, this.myImage, this.peerName,
+      this.peerImage);
   String myId;
   String peerId;
+  String myName;
+  String myImage;
+  String peerName;
+  String peerImage;
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -43,9 +48,11 @@ class Messages extends StatelessWidget {
                   itemCount: chatDoc.length,
                   itemBuilder: (ctx, index) => MessageBubble(
                     chatDoc[index]['text'],
-                    chatDoc[index]['userId'] == futureSnapshot.data.uid,
-                    chatDoc[index]['username'],
-                    chatDoc[index]['userImage'],
+                    chatDoc[index]['is_me'],
+                    myName,
+                    myImage,
+                    peerName,
+                    peerImage,
                   ),
                 );
               });

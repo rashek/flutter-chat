@@ -4,12 +4,16 @@ import 'package:chat/screens/chat_screen.dart';
 
 class ProfileCard extends StatelessWidget {
   final String username;
+  final String myName;
+  final String myImage;
   final bool isMe;
   final String userImage;
   final String myId;
   final String peerId;
   ProfileCard(
     this.username,
+    this.myName,
+    this.myImage,
     this.isMe,
     this.userImage,
     this.myId,
@@ -24,7 +28,11 @@ class ProfileCard extends StatelessWidget {
           Navigator.of(context).pushNamed(ChatScreen.routeName, arguments: {
             'myId': myId,
             'peerId': peerId,
-            'username': username
+            'username': username,
+            'my_name': myName,
+            'my_image': myImage,
+            'peer_name': username,
+            'peer_image': userImage,
           });
         },
         child: Card(

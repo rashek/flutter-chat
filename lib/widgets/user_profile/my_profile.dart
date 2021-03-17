@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class MyProfile extends StatelessWidget {
-  MyProfile(this.myid);
+  MyProfile(this.myid, this.myInfo);
+  final Function myInfo;
   final String myid;
 
   Future<QuerySnapshot> _fetchuser() async {
@@ -10,6 +11,10 @@ class MyProfile extends StatelessWidget {
         .collection('user')
         .where('uid', isEqualTo: myid)
         .getDocuments();
+    myInfo(
+      a.documents[0]['username'],
+      a.documents[0]['image_url'],
+    );
     return a;
   }
 

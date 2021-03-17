@@ -13,14 +13,26 @@ class ChatScreen extends StatelessWidget {
     final myId = routeArgs['myId'];
     final peerId = routeArgs['peerId'];
     final username = routeArgs['username'];
-    print(username);
-    print(peerId);
+    final myName = routeArgs['my_name'];
+    final myImage = routeArgs['my_image'];
+    final peerName = routeArgs['peer_name'];
+    final peerImage = routeArgs['peer_image'];
+    // print(username);
+    // print(peerId);
     return Scaffold(
       appBar: AppBar(title: Text(username)),
       body: Container(
         child: Column(
           children: [
-            Expanded(child: Messages(myId, peerId)),
+            Expanded(
+                child: Messages(
+              myId,
+              peerId,
+              myName,
+              myImage,
+              peerName,
+              peerImage,
+            )),
             NewMessage(),
           ],
         ),
