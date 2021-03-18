@@ -4,19 +4,22 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../chat/message_bubble.dart';
 
 class Messages extends StatelessWidget {
-  Messages(this.myId, this.peerId, this.myName, this.myImage, this.peerName,
-      this.peerImage);
-  String myId;
-  String peerId;
-  String myName;
-  String myImage;
-  String peerName;
-  String peerImage;
   @override
   Widget build(BuildContext context) {
+    final routeArgs =
+        ModalRoute.of(context).settings.arguments as Map<String, String>;
+    final myId = routeArgs['myId'];
+    final myName = routeArgs['my_name'];
+    final myImage = routeArgs['my_image'];
+    final peerId = routeArgs['peerId'];
+    final peerName = routeArgs['peer_name'];
+    final peerImage = routeArgs['peer_image'];
+
     return StreamBuilder(
         stream: Firestore.instance
-            .collection('user')
+            .collection('messages')
+            .document(myName)
+            .collection(peerName)
             .document(myId)
             .collection(peerId)
             .orderBy('createdAt', descending: true)

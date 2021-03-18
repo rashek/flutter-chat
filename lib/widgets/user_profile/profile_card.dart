@@ -27,10 +27,9 @@ class ProfileCard extends StatelessWidget {
         onTap: () {
           Navigator.of(context).pushNamed(ChatScreen.routeName, arguments: {
             'myId': myId,
-            'peerId': peerId,
-            'username': username,
             'my_name': myName,
             'my_image': myImage,
+            'peerId': peerId,
             'peer_name': username,
             'peer_image': userImage,
           });

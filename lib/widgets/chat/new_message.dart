@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class NewMessage extends StatefulWidget {
@@ -12,9 +11,12 @@ class _NewMessageState extends State<NewMessage> {
   final _controller = new TextEditingController();
   var _enteredMessaged = '';
 
-  void _sendreq(String idval1, String idval2, String message, bool isMe) {
+  void _sendreq(String nameval1, String nameval2, String idval1, String idval2,
+      String message, bool isMe) {
     Firestore.instance
-        .collection('user')
+        .collection('messages')
+        .document(nameval1)
+        .collection(nameval2)
         .document(idval1)
         .collection(idval2)
         .add({
@@ -29,10 +31,12 @@ class _NewMessageState extends State<NewMessage> {
     FocusScope.of(context).unfocus();
     final routeArgs =
         ModalRoute.of(context).settings.arguments as Map<String, String>;
+    final myId = routeArgs['myId'];
+    final myName = routeArgs['my_name'];
     final peerId = routeArgs['peerId'];
-    final user = await FirebaseAuth.instance.currentUser();
-    _sendreq(user.uid, peerId, _enteredMessaged, isMe);
-    _sendreq(peerId, user.uid, _enteredMessaged, !isMe);
+    final peerName = routeArgs['peer_name'];
+    _sendreq(myName, peerName, myId, peerId, _enteredMessaged, isMe);
+    _sendreq(peerName, myName, peerId, myId, _enteredMessaged, !isMe);
     _controller.clear();
   }
 
