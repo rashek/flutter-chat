@@ -59,6 +59,7 @@ class ProfileCard extends StatelessWidget {
               )),
         ),
       );
+
     return Padding(
       padding: const EdgeInsets.all(0.0),
     );
