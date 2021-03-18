@@ -1,16 +1,10 @@
-import 'package:chat/widgets/chat/messages.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import './screens/auth_screen.dart';
-
+import './screens/chat_screen.dart';
 import './screens/user_screen.dart';
-<<<<<<< HEAD
-import './widgets/chat/messages.dart';
-=======
-import 'screens/chat_screen.dart';
 import 'widgets/chat/new_message.dart';
->>>>>>> befa80abe6123eb7d54a508b90732c65ae3db12d
 
 void main() {
   runApp(MyApp());
@@ -47,10 +41,7 @@ class MyApp extends StatelessWidget {
         ),
         routes: {
           ChatScreen.routeName: (ctx) => ChatScreen(),
-<<<<<<< HEAD
-=======
           NewMessage.routeName: (ctx) => NewMessage(),
->>>>>>> befa80abe6123eb7d54a508b90732c65ae3db12d
         });
   }
 }
