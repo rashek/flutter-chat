@@ -13,6 +13,10 @@ class Messages extends StatelessWidget {
   String myImage;
   String peerName;
   String peerImage;
+<<<<<<< HEAD
+=======
+
+>>>>>>> befa80abe6123eb7d54a508b90732c65ae3db12d
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -44,6 +48,7 @@ class Messages extends StatelessWidget {
                         color: Colors.black),
                   );
                 return ListView.builder(
+<<<<<<< HEAD
                   reverse: true,
                   itemCount: chatDoc.length,
                   itemBuilder: (ctx, index) => MessageBubble(
@@ -55,6 +60,27 @@ class Messages extends StatelessWidget {
                     peerImage,
                   ),
                 );
+=======
+                    reverse: true,
+                    itemCount: chatDoc.length,
+                    itemBuilder: (ctx, index) {
+                      if (chatDoc[index]['isMe']) {
+                        return MessageBubble(
+                          chatDoc[index]['text'],
+                          chatDoc[index]['isMe'],
+                          myName,
+                          myImage,
+                        );
+                      } else {
+                        return MessageBubble(
+                          chatDoc[index]['text'],
+                          chatDoc[index]['isMe'],
+                          peerName,
+                          peerImage,
+                        );
+                      }
+                    });
+>>>>>>> befa80abe6123eb7d54a508b90732c65ae3db12d
               });
         });
   }

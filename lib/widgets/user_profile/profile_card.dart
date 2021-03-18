@@ -46,6 +46,7 @@ class ProfileCard extends StatelessWidget {
                 children: [
                   CircleAvatar(
                     backgroundImage: NetworkImage(userImage),
+<<<<<<< HEAD
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 5),
@@ -55,10 +56,22 @@ class ProfileCard extends StatelessWidget {
                           TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                     ),
                   ),
+=======
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 5),
+                    child: Text(
+                      username,
+                      style:
+                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+>>>>>>> befa80abe6123eb7d54a508b90732c65ae3db12d
                 ],
               )),
         ),
       );
+
     return Padding(
       padding: const EdgeInsets.all(0.0),
     );

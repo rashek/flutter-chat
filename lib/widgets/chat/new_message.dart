@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class NewMessage extends StatefulWidget {
+  static final routeName = '/new-message';
   @override
   _NewMessageState createState() => _NewMessageState();
 }
@@ -12,16 +13,31 @@ class _NewMessageState extends State<NewMessage> {
   var _enteredMessaged = '';
 
   void _sendMessage() async {
+    bool isMe = true;
     FocusScope.of(context).unfocus();
+    final routeArgs =
+        ModalRoute.of(context).settings.arguments as Map<String, String>;
+    final peerId = routeArgs['peerId'];
     final user = await FirebaseAuth.instance.currentUser();
-    final userData =
-        await Firestore.instance.collection('user').document(user.uid).get();
-    Firestore.instance.collection('chat').add({
+    // final userData =
+    //     await Firestore.instance.collection('user').document(user.uid).get();
+    Firestore.instance
+        .collection('user')
+        .document(user.uid)
+        .collection(peerId)
+        .add({
       'text': _enteredMessaged,
       'createdAt': Timestamp.now(),
-      'userId': user.uid,
-      'username': userData['username'],
-      'userImage': userData['image_url'],
+      'isMe': isMe
+    });
+    Firestore.instance
+        .collection('user')
+        .document(peerId)
+        .collection(user.uid)
+        .add({
+      'text': _enteredMessaged,
+      'createdAt': Timestamp.now(),
+      'isMe': !isMe
     });
     _controller.clear();
   }
