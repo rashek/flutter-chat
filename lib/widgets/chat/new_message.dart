@@ -12,6 +12,18 @@ class _NewMessageState extends State<NewMessage> {
   final _controller = new TextEditingController();
   var _enteredMessaged = '';
 
+  void _sendreq(String idval1, String idval2, String message, bool isMe) {
+    Firestore.instance
+        .collection('user')
+        .document(idval1)
+        .collection(idval2)
+        .add({
+      'text': _enteredMessaged,
+      'createdAt': Timestamp.now(),
+      'isMe': isMe
+    });
+  }
+
   void _sendMessage() async {
     bool isMe = true;
     FocusScope.of(context).unfocus();
@@ -19,26 +31,8 @@ class _NewMessageState extends State<NewMessage> {
         ModalRoute.of(context).settings.arguments as Map<String, String>;
     final peerId = routeArgs['peerId'];
     final user = await FirebaseAuth.instance.currentUser();
-    // final userData =
-    //     await Firestore.instance.collection('user').document(user.uid).get();
-    Firestore.instance
-        .collection('user')
-        .document(user.uid)
-        .collection(peerId)
-        .add({
-      'text': _enteredMessaged,
-      'createdAt': Timestamp.now(),
-      'isMe': isMe
-    });
-    Firestore.instance
-        .collection('user')
-        .document(peerId)
-        .collection(user.uid)
-        .add({
-      'text': _enteredMessaged,
-      'createdAt': Timestamp.now(),
-      'isMe': !isMe
-    });
+    _sendreq(user.uid, peerId, _enteredMessaged, isMe);
+    _sendreq(peerId, user.uid, _enteredMessaged, !isMe);
     _controller.clear();
   }
 
