@@ -4,19 +4,6 @@ import 'package:flutter/material.dart';
 class MessageBubble extends StatelessWidget {
   final String message;
   final bool isMe;
-<<<<<<< HEAD
-  final String myName;
-  final String myImage;
-  final String peerName;
-  final String peerImage;
-  MessageBubble(
-    this.message,
-    this.isMe,
-    this.myName,
-    this.myImage,
-    this.peerName,
-    this.peerImage,
-=======
   final String name;
   final String image;
   // final String myName;
@@ -32,7 +19,6 @@ class MessageBubble extends StatelessWidget {
     // this.myImage,
     // this.peerImage,
     // this.peerName,
->>>>>>> befa80abe6123eb7d54a508b90732c65ae3db12d
   );
   @override
   Widget build(BuildContext context) {
@@ -66,12 +52,8 @@ class MessageBubble extends StatelessWidget {
                       isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
                   children: [
                     Text(
-<<<<<<< HEAD
-                      isMe ? myName : peerName,
-=======
                       name,
                       //isMe ? peerName : myName,
->>>>>>> befa80abe6123eb7d54a508b90732c65ae3db12d
                       style: TextStyle(
                           fontWeight: FontWeight.bold, color: Colors.blue[900]),
                     ),
@@ -94,12 +76,8 @@ class MessageBubble extends StatelessWidget {
           right: isMe ? 120 : null,
           child: CircleAvatar(
             backgroundImage:
-<<<<<<< HEAD
-                isMe ? NetworkImage(myImage) : NetworkImage(peerImage),
-=======
                 //isMe ? NetworkImage(peerImage) : NetworkImage(myImage),
                 NetworkImage(image),
->>>>>>> befa80abe6123eb7d54a508b90732c65ae3db12d
           ),
         ),
       ],
