@@ -1,11 +1,10 @@
-import 'package:chat/widgets/chat/messages.dart';
-import 'package:chat/widgets/chat/new_message.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import './screens/auth_screen.dart';
 import './screens/chat_screen.dart';
 import './screens/user_screen.dart';
+import 'widgets/chat/new_message.dart';
 
 void main() {
   runApp(MyApp());
@@ -31,14 +30,15 @@ class MyApp extends StatelessWidget {
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         home: StreamBuilder(
-            stream: FirebaseAuth.instance.onAuthStateChanged,
-            builder: (ctx, userSnapshot) {
-              if (userSnapshot.hasData) {
-                return UserScreen();
-                // return ChatScreen();
-              }
-              return AuthScreen();
-            }),
+          stream: FirebaseAuth.instance.onAuthStateChanged,
+          builder: (ctx, userSnapshot) {
+            if (userSnapshot.hasData) {
+              return UserScreen();
+              // return ChatScreen();
+            }
+            return AuthScreen();
+          },
+        ),
         routes: {
           ChatScreen.routeName: (ctx) => ChatScreen(),
           NewMessage.routeName: (ctx) => NewMessage(),

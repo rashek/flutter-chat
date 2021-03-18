@@ -4,7 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class NewMessage extends StatefulWidget {
   static final routeName = '/new-message';
-
   @override
   _NewMessageState createState() => _NewMessageState();
 }
@@ -13,15 +12,15 @@ class _NewMessageState extends State<NewMessage> {
   final _controller = new TextEditingController();
   var _enteredMessaged = '';
 
-  void sendMessage() async {
+  void _sendMessage() async {
+    bool isMe = true;
     FocusScope.of(context).unfocus();
     final routeArgs =
         ModalRoute.of(context).settings.arguments as Map<String, String>;
     final peerId = routeArgs['peerId'];
-    final username = routeArgs['username'];
     final user = await FirebaseAuth.instance.currentUser();
-    final senderData =
-        await Firestore.instance.collection('user').document(user.uid).get();
+    // final userData =
+    //     await Firestore.instance.collection('user').document(user.uid).get();
     Firestore.instance
         .collection('user')
         .document(user.uid)
@@ -29,10 +28,7 @@ class _NewMessageState extends State<NewMessage> {
         .add({
       'text': _enteredMessaged,
       'createdAt': Timestamp.now(),
-      'userId': peerId,
-      'peerUsername': username,
-      'username': user.displayName,
-      'userImage': senderData['image_url'],
+      'isMe': isMe
     });
     Firestore.instance
         .collection('user')
@@ -41,10 +37,7 @@ class _NewMessageState extends State<NewMessage> {
         .add({
       'text': _enteredMessaged,
       'createdAt': Timestamp.now(),
-      'userId': user.uid,
-      'peerUsername': user.displayName,
-      'username': username,
-      'userImage': senderData['image_url'],
+      'isMe': !isMe
     });
     _controller.clear();
   }
@@ -71,7 +64,7 @@ class _NewMessageState extends State<NewMessage> {
           icon: Icon(
             Icons.send,
           ),
-          onPressed: _enteredMessaged.trim().isEmpty ? null : sendMessage,
+          onPressed: _enteredMessaged.trim().isEmpty ? null : _sendMessage,
         )
       ]),
     );

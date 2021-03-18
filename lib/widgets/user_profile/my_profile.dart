@@ -2,16 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class MyProfile extends StatelessWidget {
-  MyProfile(this.myid);
+  MyProfile(this.myid, this.myInfo);
+  final Function myInfo;
   final String myid;
+
+  Future<QuerySnapshot> _fetchuser() async {
+    var a = await Firestore.instance
+        .collection('user')
+        .where('uid', isEqualTo: myid)
+        .getDocuments();
+    myInfo(
+      a.documents[0]['username'],
+      a.documents[0]['image_url'],
+    );
+    return a;
+  }
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-        stream: Firestore.instance
-            .collection('user')
-            .where('uid', isEqualTo: myid)
-            .snapshots(),
+    return FutureBuilder(
+        future: _fetchuser(),
         builder: (ctx, userSnapshot) {
           if (userSnapshot.connectionState == ConnectionState.waiting) {
             return Center(
@@ -19,6 +29,7 @@ class MyProfile extends StatelessWidget {
             );
           }
           final userDoc = userSnapshot.data.documents;
+          // print(userDoc.length);
           return Container(
             // height: 100,
             padding: EdgeInsets.only(top: 8),
