@@ -19,8 +19,8 @@ class Messages extends StatelessWidget {
         stream: Firestore.instance
             .collection('messages')
             .document(myName)
-            .collection(peerName)
-            .document(myId)
+            .collection(myId)
+            .document(peerName)
             .collection(peerId)
             .orderBy('createdAt', descending: true)
             .snapshots(),

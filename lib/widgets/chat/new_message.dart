@@ -16,8 +16,8 @@ class _NewMessageState extends State<NewMessage> {
     Firestore.instance
         .collection('messages')
         .document(nameval1)
-        .collection(nameval2)
-        .document(idval1)
+        .collection(idval1)
+        .document(nameval2)
         .collection(idval2)
         .add({
       'text': _enteredMessaged,
