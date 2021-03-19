@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class NewMessage extends StatefulWidget {
@@ -12,33 +11,32 @@ class _NewMessageState extends State<NewMessage> {
   final _controller = new TextEditingController();
   var _enteredMessaged = '';
 
-  void _sendMessage() async {
-    bool isMe = true;
-    FocusScope.of(context).unfocus();
-    final routeArgs =
-        ModalRoute.of(context).settings.arguments as Map<String, String>;
-    final peerId = routeArgs['peerId'];
-    final user = await FirebaseAuth.instance.currentUser();
-    // final userData =
-    //     await Firestore.instance.collection('user').document(user.uid).get();
+  void _sendreq(String nameval1, String nameval2, String idval1, String idval2,
+      String message, bool isMe) {
     Firestore.instance
-        .collection('user')
-        .document(user.uid)
-        .collection(peerId)
+        .collection('messages')
+        .document(nameval1)
+        .collection(idval1)
+        .document(nameval2)
+        .collection(idval2)
         .add({
       'text': _enteredMessaged,
       'createdAt': Timestamp.now(),
       'isMe': isMe
     });
-    Firestore.instance
-        .collection('user')
-        .document(peerId)
-        .collection(user.uid)
-        .add({
-      'text': _enteredMessaged,
-      'createdAt': Timestamp.now(),
-      'isMe': !isMe
-    });
+  }
+
+  void _sendMessage() async {
+    bool isMe = true;
+    FocusScope.of(context).unfocus();
+    final routeArgs =
+        ModalRoute.of(context).settings.arguments as Map<String, String>;
+    final myId = routeArgs['myId'];
+    final myName = routeArgs['my_name'];
+    final peerId = routeArgs['peerId'];
+    final peerName = routeArgs['peer_name'];
+    _sendreq(myName, peerName, myId, peerId, _enteredMessaged, isMe);
+    _sendreq(peerName, myName, peerId, myId, _enteredMessaged, !isMe);
     _controller.clear();
   }
 
