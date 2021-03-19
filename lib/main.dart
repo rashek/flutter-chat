@@ -1,3 +1,4 @@
+import 'package:chat/screens/PeerProfile.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -42,6 +43,7 @@ class MyApp extends StatelessWidget {
         routes: {
           ChatScreen.routeName: (ctx) => ChatScreen(),
           NewMessage.routeName: (ctx) => NewMessage(),
+          PeerProfile.routeName: (ctx) => PeerProfile(),
         });
   }
 }
