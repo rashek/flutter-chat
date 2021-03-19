@@ -5,14 +5,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../chat/message_bubble.dart';
 
 class Messages extends StatelessWidget {
-  Messages(this.myId, this.peerId, this.myName, this.myImage, this.peerName,
-      this.peerImage);
-  String myId;
-  String peerId;
-  String myName;
-  String myImage;
-  String peerName;
-  String peerImage;
+//   Messages(this.myId, this.peerId, this.myName, this.myImage, this.peerName,
+//       this.peerImage);
+//   String myId;
+//   String peerId;
+//   String myName;
+//   String myImage;
+//   String peerName;
+//   String peerImage;
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -21,6 +21,15 @@ class Messages extends StatelessWidget {
           if (futureSnapshot.connectionState == ConnectionState.waiting) {
             return CircularProgressIndicator();
           }
+          //FocusScope.of(context).unfocus();
+          final routeArgs =
+              ModalRoute.of(context).settings.arguments as Map<String, String>;
+          final peerId = routeArgs['peerId'];
+          final myId = routeArgs['myId'];
+          final myName = routeArgs['my_name'];
+          final myImage = routeArgs['my_image'];
+          final peerName = routeArgs['peer_name'];
+          final peerImage = routeArgs['peer_image'];
           return StreamBuilder(
               stream: Firestore.instance
                   .collection('user')
