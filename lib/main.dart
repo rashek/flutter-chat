@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import './screens/auth_screen.dart';
 import './screens/chat_screen.dart';
-import './screens/user_screen.dart';
+import 'screens/all_user_screen.dart';
 import 'widgets/chat/new_message.dart';
 
 void main() {
@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
           stream: FirebaseAuth.instance.onAuthStateChanged,
           builder: (ctx, userSnapshot) {
             if (userSnapshot.hasData) {
-              return UserScreen();
+              return AllUserScreen();
               // return ChatScreen();
             }
             return AuthScreen();
