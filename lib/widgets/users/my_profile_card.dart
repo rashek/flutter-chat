@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class MyProfile extends StatelessWidget {
-  MyProfile(this.myid, this.myInfo);
+class MyProfileCard extends StatelessWidget {
+  MyProfileCard(this.myid, this.myInfo);
   final Function myInfo;
   final String myid;
 

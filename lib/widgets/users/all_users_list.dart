@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import './my_profile.dart';
-import './profile_card.dart';
+import 'my_profile_card.dart';
+import 'profile_card.dart';
 
 class UserList extends StatefulWidget {
   @override
@@ -55,7 +55,7 @@ class _UserListState extends State<UserList> {
                   physics: NeverScrollableScrollPhysics(),
                   child: Column(
                     children: [
-                      MyProfile(myuid, _fetchMyInfo),
+                      MyProfileCard(myuid, _fetchMyInfo),
                       Container(
                         child: ListView.builder(
                           itemCount: userDoc.length,

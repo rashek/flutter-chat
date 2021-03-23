@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-AppBar userAppBar({dynamic googleSignIn, dynamic context}) {
+AppBar userAppBar({dynamic googleSignIn, dynamic context, String title}) {
   return AppBar(
-    title: Text('Chat Window'),
+    title: Text(title),
     actions: [
       DropdownButton(
         icon: Icon(Icons.more_vert,
