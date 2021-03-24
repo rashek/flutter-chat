@@ -26,7 +26,11 @@ class UserCard extends StatelessWidget {
         .document(userId)
         .collection('requests')
         .document(myId)
-        .setData({'uid': myId});
+        .setData({
+      'uid': myId,
+      'username': username,
+      'image_url': myImage,
+    });
   }
 
   @override
