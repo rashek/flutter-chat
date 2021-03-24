@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-import '../widgets/user_profile/all_users_list.dart';
+import '../widgets/users/all_users_list.dart';
 import '../widgets/app_bar_items/user_appbar.dart';
 import '../widgets/app_bar_items/app_drawer.dart';
 import '../widgets/app_bar_items/user_bottom_navbar.dart';
@@ -20,7 +20,6 @@ class _MainTabScreenState extends State<MainTabScreen> {
   ];
 
   int _selectPageIndex = 0;
-
   void _selectPage(int index) {
     setState(() {
       _selectPageIndex = index;
