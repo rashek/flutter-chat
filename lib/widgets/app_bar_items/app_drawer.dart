@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../screens/all_user_screen.dart';
+import '../../screens/main_tab_screen.dart';
+
 class AppDrawer extends StatelessWidget {
   Widget buildListTile(String title, IconData icon, Function tapHandler) {
     return ListTile(
@@ -24,21 +27,33 @@ class AppDrawer extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            height: 120,
+            // height: 120,
             width: double.infinity,
-            padding: EdgeInsets.all(20),
+            padding: EdgeInsets.all(30),
             alignment: Alignment.centerLeft,
             color: Theme.of(context).primaryColor,
-            child: Text(
-              'My Items',
-              style: TextStyle(
-                fontWeight: FontWeight.w500,
-                fontSize: 30,
-              ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Center(
+                  child: Text(
+                    'It Live',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 40,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
-          buildListTile('My Friends', Icons.group_add_rounded, () {}),
-          buildListTile('All User', Icons.group_rounded, () {}),
+          buildListTile('Home', Icons.home_filled, () {
+            Navigator.of(context).pushReplacementNamed(MainTabScreen.routeName);
+          }),
+          buildListTile('All User', Icons.group_rounded, () {
+            Navigator.of(context).pushReplacementNamed(AllUserScreen.routeName);
+          }),
         ],
       ),
     );
