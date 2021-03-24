@@ -12,6 +12,7 @@ class ChatScreen extends StatelessWidget {
     final routeArgs =
         ModalRoute.of(context).settings.arguments as Map<String, String>;
     final peerName = routeArgs['peer_name'];
+    final peerImage = routeArgs['peer_image'];
     return Scaffold(
       appBar: AppBar(
         title: Text(peerName),
@@ -52,6 +53,7 @@ class ChatScreen extends StatelessWidget {
                   Navigator.of(context)
                       .pushNamed(PeerProfile.routeName, arguments: {
                     'peer_name': peerName,
+                    'peer_image': peerImage,
                   });
                 }
               },

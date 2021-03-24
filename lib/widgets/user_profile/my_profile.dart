@@ -44,12 +44,14 @@ class MyProfile extends StatelessWidget {
                       radius: 30.0,
                       backgroundImage: NetworkImage(userDoc[0]['image_url']),
                     ),
+                    SizedBox(height: 5),
                     Text(
                       userDoc[0]['username'] == null
                           ? 'got null'
                           : userDoc[0]['username'],
                       style:
                           TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
                     )
                   ],
                 ),
