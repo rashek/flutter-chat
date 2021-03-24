@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'my_profile_card.dart';
-import 'profile_card.dart';
+// import './my_profile_card.dart';
+import 'notification_card.dart';
 
-class UserList extends StatefulWidget {
+class NotificationList extends StatefulWidget {
   @override
-  _UserListState createState() => _UserListState();
+  _NotificationListState createState() => _NotificationListState();
 }
 
-class _UserListState extends State<UserList> {
+class _NotificationListState extends State<NotificationList> {
   String myName;
   bool a = true;
   String myImage;
@@ -21,16 +21,6 @@ class _UserListState extends State<UserList> {
         .orderBy('username', descending: false)
         .getDocuments();
     return ab;
-  }
-
-  _fetchMyInfo(String value1, String value2) {
-    if (a) {
-      setState(() {
-        myName = value1;
-        myImage = value2;
-        a = false;
-      });
-    }
   }
 
   @override
@@ -55,11 +45,11 @@ class _UserListState extends State<UserList> {
                   physics: NeverScrollableScrollPhysics(),
                   child: Column(
                     children: [
-                      MyProfileCard(myuid, _fetchMyInfo),
+                      // MyProfileCard(myuid, _fetchMyInfo),
                       Container(
                         child: ListView.builder(
                           itemCount: userDoc.length,
-                          itemBuilder: (ctx, index) => ProfileCard(
+                          itemBuilder: (ctx, index) => NotificationCard(
                             userDoc[index]['username'],
                             myName,
                             myImage,

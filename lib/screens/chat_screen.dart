@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../widgets/chat/messages.dart';
 import '../widgets/chat/new_message.dart';
 import '../screens/profile_screen.dart';
-import '../widgets/user_profile/profile.dart';
+// import '../widgets/users/profile.dart';
 
 class ChatScreen extends StatelessWidget {
   static final routeName = '/chat_screen';

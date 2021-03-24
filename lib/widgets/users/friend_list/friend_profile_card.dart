@@ -3,19 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:chat/screens/chat_screen.dart';
 
 class ProfileCard extends StatelessWidget {
-  final String username;
+  final String peerName;
   final String myName;
   final String myImage;
   final bool isMe;
-  final String userImage;
+  final String perrImage;
   final String myId;
   final String peerId;
   ProfileCard(
-    this.username,
+    this.peerName,
     this.myName,
     this.myImage,
     this.isMe,
-    this.userImage,
+    this.perrImage,
     this.myId,
     this.peerId,
   );
@@ -30,8 +30,8 @@ class ProfileCard extends StatelessWidget {
             'my_name': myName,
             'my_image': myImage,
             'peerId': peerId,
-            'peer_name': username,
-            'peer_image': userImage,
+            'peer_name': peerName,
+            'peer_image': perrImage,
           });
         },
         child: Card(
@@ -40,22 +40,22 @@ class ProfileCard extends StatelessWidget {
             vertical: 5,
           ),
           child: Padding(
-              padding: const EdgeInsets.all(10),
-              child: Row(
-                children: [
-                  CircleAvatar(
-                    backgroundImage: NetworkImage(userImage),
+            padding: const EdgeInsets.all(10),
+            child: Row(
+              children: [
+                CircleAvatar(
+                  backgroundImage: NetworkImage(perrImage),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 5),
+                  child: Text(
+                    peerName,
+                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 5),
-                    child: Text(
-                      username,
-                      style:
-                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ],
-              )),
+                ),
+              ],
+            ),
+          ),
         ),
       );
 

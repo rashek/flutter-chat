@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import './screens/auth_screen.dart';
+import './screens/all_user_screen.dart';
 import './screens/profile_screen.dart';
 import './screens/chat_screen.dart';
 import 'screens/main_tab_screen.dart';
@@ -44,6 +45,7 @@ class MyApp extends StatelessWidget {
           ChatScreen.routeName: (ctx) => ChatScreen(),
           NewMessage.routeName: (ctx) => NewMessage(),
           ProfileScreen.routeName: (ctx) => ProfileScreen(),
+          AllUserScreen.routeName: (ctx) => AllUserScreen(),
         });
   }
 }
