@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class NotificationCard extends StatelessWidget {
   final String peerId;
@@ -17,6 +18,27 @@ class NotificationCard extends StatelessWidget {
     this.myImage,
     this.isMe,
   );
+  void _requestAction(ignore) async {
+    if (!ignore) {
+      await Firestore.instance
+          .collection('user')
+          .document(myId)
+          .collection('friend_list')
+          .document(peerId)
+          .setData({
+        'uid': peerId,
+        'username': peerName,
+        'image_url': peerImage,
+      });
+    }
+
+    await Firestore.instance
+        .collection('user')
+        .document(myId)
+        .collection('requests')
+        .document(peerId)
+        .delete();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,13 +75,17 @@ class NotificationCard extends StatelessWidget {
                           Icons.check,
                           color: Theme.of(context).primaryColor,
                         ),
-                        onPressed: () {}),
+                        onPressed: () {
+                          _requestAction(false);
+                        }),
                     IconButton(
                         icon: Icon(
                           Icons.delete,
                           color: Colors.red,
                         ),
-                        onPressed: () {}),
+                        onPressed: () {
+                          _requestAction(false);
+                        }),
                   ],
                 )
               ],

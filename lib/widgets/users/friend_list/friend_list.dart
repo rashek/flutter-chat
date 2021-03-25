@@ -6,9 +6,11 @@ import '../my_profile_card.dart';
 import 'friend_profile_card.dart';
 
 class FriendList extends StatelessWidget {
-  Future<QuerySnapshot> _fetchAlluser() async {
+  Future<QuerySnapshot> _fetchAlluser(myuid) async {
     final ab = await Firestore.instance
         .collection('user')
+        .document(myuid)
+        .collection('friend_list')
         .orderBy('username', descending: false)
         .getDocuments();
     return ab;
@@ -40,7 +42,7 @@ class FriendList extends StatelessWidget {
                 final myName = mySnapshot.data.documents[0]['username'];
                 final myImage = mySnapshot.data.documents[0]['image_url'];
                 return FutureBuilder(
-                    future: _fetchAlluser(),
+                    future: _fetchAlluser(myuid),
                     builder: (ctx, userSnapshot) {
                       if (userSnapshot.connectionState ==
                           ConnectionState.waiting) {

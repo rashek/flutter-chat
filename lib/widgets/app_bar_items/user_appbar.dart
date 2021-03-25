@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import '';
 
 AppBar userAppBar({dynamic googleSignIn, dynamic context, String title}) {
   return AppBar(
@@ -29,6 +30,7 @@ AppBar userAppBar({dynamic googleSignIn, dynamic context, String title}) {
             FirebaseAuth.instance.signOut();
             googleSignIn.disconnect();
             googleSignIn.signOut();
+            // Navigator.of(context).pop();
           }
         },
       ),
