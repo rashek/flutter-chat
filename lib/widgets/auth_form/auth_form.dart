@@ -34,6 +34,7 @@ class _AuthFormState extends State<AuthForm> {
     final isValid = _formKey.currentState.validate();
     FocusScope.of(context).unfocus();
     if (_userImageFile == null && !_isLogin) {
+      // ignore: deprecated_member_use
       Scaffold.of(context).showSnackBar(SnackBar(
         content: Text('PLease pick a image.'),
         backgroundColor: Theme.of(context).errorColor,

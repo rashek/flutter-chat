@@ -24,6 +24,7 @@ class MessageBubble extends StatelessWidget {
   Widget build(BuildContext context) {
     final routeArgs =
         ModalRoute.of(context).settings.arguments as Map<String, String>;
+    // ignore: unused_local_variable
     final testingid = routeArgs['myId'];
     return Stack(
       children: [
@@ -79,6 +80,7 @@ class MessageBubble extends StatelessWidget {
           ),
         ),
       ],
+      // ignore: deprecated_member_use
       overflow: Overflow.visible,
     );
   }

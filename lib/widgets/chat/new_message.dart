@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -60,6 +59,7 @@ class _NewMessageState extends State<NewMessage> {
     final peerName = routeArgs['peer_name'];
     _sendreq(myName, peerName, myId, peerId, _enteredMessaged, isMe, notify);
     _sendreq(peerName, myName, peerId, myId, _enteredMessaged, !isMe, notify);
+    // ignore: unnecessary_statements
     Platform.isAndroid ? showNotification(notify) : '';
     _controller.clear();
 

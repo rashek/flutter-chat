@@ -1,4 +1,3 @@
-import 'package:chat/screens/PeerProfile.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/chat/messages.dart';

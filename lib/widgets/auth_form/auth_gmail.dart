@@ -24,6 +24,7 @@ class _AuthGmailState extends State<AuthGmail> {
   bool isLoading = false;
 
   // @override
+  // ignore: missing_return
   Future<FirebaseUser> handleSignIn() async {
     setState(() {
       isLoading = true;
