@@ -30,14 +30,14 @@ class FriendList extends StatelessWidget {
         future: FirebaseAuth.instance.currentUser(),
         builder: (ctx, futureSnapshot) {
           if (futureSnapshot.connectionState == ConnectionState.waiting) {
-            return CircularProgressIndicator();
+            return Center(child: CircularProgressIndicator());
           }
           final myuid = futureSnapshot.data.uid;
           return FutureBuilder(
               future: _fetchMyInfo(myuid),
               builder: (ctx, mySnapshot) {
                 if (mySnapshot.connectionState == ConnectionState.waiting) {
-                  return CircularProgressIndicator();
+                  return Center(child: CircularProgressIndicator());
                 }
                 final myName = mySnapshot.data.documents[0]['username'];
                 final myImage = mySnapshot.data.documents[0]['image_url'];
@@ -47,7 +47,7 @@ class FriendList extends StatelessWidget {
                       if (userSnapshot.connectionState ==
                           ConnectionState.waiting) {
                         return Center(
-                          child: CircularProgressIndicator(),
+                          child: Center(child: CircularProgressIndicator()),
                         );
                       }
                       final userDoc = userSnapshot.data.documents;

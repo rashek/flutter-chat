@@ -49,7 +49,7 @@ class _UserCardState extends State<UserCard> {
     setState(() {});
   }
 
-  Future<QuerySnapshot> _fetchStatus() async {
+  Future<QuerySnapshot> _checkRequest() async {
     final ab = await Firestore.instance
         .collection('user')
         .document(widget.userId)
@@ -59,17 +59,34 @@ class _UserCardState extends State<UserCard> {
     return ab;
   }
 
+  Future<QuerySnapshot> _checkFriendList() async {
+    final ab = await Firestore.instance
+        .collection('user')
+        .document(widget.userId)
+        .collection('friend_list')
+        .where('uid', isEqualTo: widget.myId)
+        .getDocuments();
+    return ab;
+  }
+
   @override
   Widget build(BuildContext context) {
     if (!widget.isMe)
       return FutureBuilder(
-          future: _fetchStatus(),
-          builder: (context, checksnapshot) {
-            if (checksnapshot.connectionState == ConnectionState.waiting) {
-              return Text('Loading');
+          future: Future.wait([
+            _checkRequest(),
+            _checkFriendList(),
+          ]),
+          builder: (context, AsyncSnapshot<List<QuerySnapshot>> snapshot) {
+            if (!snapshot.hasData) {
+              return Padding(
+                padding: EdgeInsets.all(0),
+              );
             }
-            final checkStatus = checksnapshot.data.documents;
-            print(checkStatus.length);
+            final checkRequest = snapshot.data[0].documents;
+            final checkFriend = snapshot.data[1].documents;
+            print(checkFriend.length);
+            // print(checkRequest.length);
             return Card(
               margin: EdgeInsets.symmetric(
                 horizontal: 5,
@@ -96,13 +113,16 @@ class _UserCardState extends State<UserCard> {
                         ],
                       ),
                       OutlinedButton(
-                        onPressed: () {
-                          _sendRequest(checkStatus.length < 1);
-                        },
-                        child: checkStatus.length < 1
-                            ? Text('Add +')
-                            : Text('Added'),
-                      )
+                          onPressed: checkFriend.length < 1
+                              ? () {
+                                  _sendRequest(checkRequest.length < 1);
+                                }
+                              : null,
+                          child: !(checkRequest.length < 1)
+                              ? Text('Added')
+                              : checkFriend.length < 1
+                                  ? Text('Add +')
+                                  : Text('Friends'))
                     ],
                   )),
               // ),
