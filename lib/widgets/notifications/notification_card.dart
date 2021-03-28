@@ -18,20 +18,20 @@ class NotificationCard extends StatelessWidget {
     this.myImage,
     this.isMe,
   );
-  void _requestAction(ignore) async {
-    if (!ignore) {
-      await Firestore.instance
-          .collection('user')
-          .document(myId)
-          .collection('friend_list')
-          .document(peerId)
-          .setData({
-        'uid': peerId,
-        'username': peerName,
-        'image_url': peerImage,
-      });
-    }
+  void _addToFriendlist(idVal1, idVal2, username, imageurl) async {
+    await Firestore.instance
+        .collection('user')
+        .document(idVal1)
+        .collection('friend_list')
+        .document(idVal2)
+        .setData({
+      'uid': idVal2,
+      'username': username,
+      'image_url': imageurl,
+    });
+  }
 
+  void _removeRequest() async {
     await Firestore.instance
         .collection('user')
         .document(myId)
@@ -76,7 +76,9 @@ class NotificationCard extends StatelessWidget {
                           color: Theme.of(context).primaryColor,
                         ),
                         onPressed: () {
-                          _requestAction(false);
+                          _addToFriendlist(myId, peerId, peerName, peerImage);
+                          _addToFriendlist(peerId, myId, myName, myImage);
+                          _removeRequest();
                         }),
                     IconButton(
                         icon: Icon(
@@ -84,7 +86,7 @@ class NotificationCard extends StatelessWidget {
                           color: Colors.red,
                         ),
                         onPressed: () {
-                          _requestAction(false);
+                          _removeRequest();
                         }),
                   ],
                 )
