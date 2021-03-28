@@ -1,5 +1,8 @@
+// import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -26,51 +29,53 @@ class _AuthGmailState extends State<AuthGmail> {
       isLoading = true;
     });
 
-    final GoogleSignInAccount googleUser = await googleSignIn.signIn();
-    final GoogleSignInAuthentication googleAuth =
-        await googleUser.authentication;
+    try {
+      final GoogleSignInAccount googleUser = await googleSignIn.signIn();
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
 
-    final AuthCredential credential = GoogleAuthProvider.getCredential(
-      accessToken: googleAuth.accessToken,
-      idToken: googleAuth.idToken,
-    );
-    FirebaseUser fireUser =
-        (await firebaseAuth.signInWithCredential(credential)).user;
+      final AuthCredential credential = GoogleAuthProvider.getCredential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
 
-    if (fireUser != null) {
-      final QuerySnapshot result = await Firestore.instance
-          .collection('user')
-          .where('id', isEqualTo: fireUser.uid)
-          .getDocuments();
-      final List<DocumentSnapshot> documents = result.documents;
+      FirebaseUser fireUser =
+          (await firebaseAuth.signInWithCredential(credential)).user;
 
-      if (documents.length == 0) {
-        // Update data to server if new user
-        widget.createFn(
-          fireUser.email,
-          fireUser.uid,
-          fireUser.displayName,
-          fireUser.photoUrl,
-        );
+      if (fireUser != null) {
+        final QuerySnapshot result = await Firestore.instance
+            .collection('user')
+            .where('uid', isEqualTo: fireUser.uid)
+            .getDocuments();
+        final List<DocumentSnapshot> documents = result.documents;
+        // print(document.data.)
+        if (documents.length == 0) {
+          // Update data to server if new user
+          widget.createFn(
+            fireUser.email,
+            fireUser.uid,
+            fireUser.displayName,
+            fireUser.photoUrl,
+          );
+        }
+        return fireUser;
       }
+    } on PlatformException catch (error) {
+      print(error);
     }
     setState(() {
       isLoading = false;
     });
-    return fireUser;
   }
 
   Widget build(BuildContext context) {
     return Center(
-      child: isLoading
-          ? CircularProgressIndicator()
-          : OutlinedButton(
-              style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all<Color>(Colors.white)),
-              child: Text('Login With Gmail'),
-              onPressed: handleSignIn,
-            ),
+      child: OutlinedButton(
+        style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all<Color>(Colors.white)),
+        child: Text('Login With Gmail'),
+        onPressed: handleSignIn,
+      ),
     );
   }
 }

@@ -4,11 +4,27 @@ import 'package:flutter/material.dart';
 class MessageBubble extends StatelessWidget {
   final String message;
   final bool isMe;
-  final String username;
-  final String userImage;
-  MessageBubble(this.message, this.isMe, this.username, this.userImage);
+  final String name;
+  final String image;
+  // final String myName;
+  // final String myImage;
+  // final String peerName;
+  // final String peerImage;
+  MessageBubble(
+    this.message,
+    this.isMe,
+    this.name,
+    this.image,
+    // this.myName,
+    // this.myImage,
+    // this.peerImage,
+    // this.peerName,
+  );
   @override
   Widget build(BuildContext context) {
+    final routeArgs =
+        ModalRoute.of(context).settings.arguments as Map<String, String>;
+    final testingid = routeArgs['myId'];
     return Stack(
       children: [
         Row(
@@ -17,8 +33,7 @@ class MessageBubble extends StatelessWidget {
             children: [
               Container(
                 decoration: BoxDecoration(
-                  color:
-                      isMe ? Colors.grey[300] : Theme.of(context).accentColor,
+                  color: isMe ? Colors.greenAccent : Colors.greenAccent[400],
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(12),
                     topRight: Radius.circular(12),
@@ -39,17 +54,14 @@ class MessageBubble extends StatelessWidget {
                       isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
                   children: [
                     Text(
-                      username,
+                      name,
+                      //isMe ? peerName : myName,
                       style: TextStyle(
                           fontWeight: FontWeight.bold, color: Colors.blue[900]),
                     ),
                     Text(
                       message,
-                      style: TextStyle(
-                        color: isMe
-                            ? Colors.black
-                            : Theme.of(context).accentTextTheme.headline1.color,
-                      ),
+                      style: TextStyle(color: Colors.black),
                       textAlign: isMe ? TextAlign.end : TextAlign.start,
                     ),
                   ],
@@ -61,7 +73,9 @@ class MessageBubble extends StatelessWidget {
           left: isMe ? null : 120,
           right: isMe ? 120 : null,
           child: CircleAvatar(
-            backgroundImage: NetworkImage(userImage),
+            backgroundImage:
+                //isMe ? NetworkImage(peerImage) : NetworkImage(myImage),
+                NetworkImage(image),
           ),
         ),
       ],
