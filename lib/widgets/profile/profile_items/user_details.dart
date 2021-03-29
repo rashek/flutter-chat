@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
 
-class Profile extends StatelessWidget {
-  static final routeName = '/other_user_profile';
+class UserDtails extends StatelessWidget {
+  UserDtails(this.name, this.image);
+  final String name;
+  final String image;
 
   @override
   Widget build(BuildContext context) {
-    final routeArgs =
-        ModalRoute.of(context).settings.arguments as Map<String, String>;
-    // final Id = routeArgs['Id'];
-    final name = routeArgs['name'];
-    final image = routeArgs['image'];
-
     return Container(
-      height: 200,
+      // height: 200,
       padding: EdgeInsets.only(top: 8),
       width: double.infinity,
       child: Card(
@@ -30,6 +26,18 @@ class Profile extends StatelessWidget {
                 child: Text(
                   name,
                   style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                ),
+              ),
+              Center(
+                child: ElevatedButton(
+                  onPressed: () {},
+                  child: Text('add'),
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.red[200],
+                    onPrimary: Colors.white70,
+                    // minimumSize: Size(500, 100),
+                    side: BorderSide(width: 5),
+                  ),
                 ),
               )
             ],

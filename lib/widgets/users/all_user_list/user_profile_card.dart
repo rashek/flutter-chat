@@ -85,8 +85,6 @@ class _UserCardState extends State<UserCard> {
             }
             final checkRequest = snapshot.data[0].documents;
             final checkFriend = snapshot.data[1].documents;
-            print(checkFriend.length);
-            // print(checkRequest.length);
             return Card(
               margin: EdgeInsets.symmetric(
                 horizontal: 5,

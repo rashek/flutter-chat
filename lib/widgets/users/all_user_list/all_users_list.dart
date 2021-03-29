@@ -2,24 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-// import './my_profile_card.dart';
 import 'user_profile_card.dart';
 
 class AllUserList extends StatelessWidget {
   Future<QuerySnapshot> _fetchAlluser() async {
-    final ab = await Firestore.instance
+    final querySnapshot = await Firestore.instance
         .collection('user')
         .orderBy('username', descending: false)
         .getDocuments();
-    return ab;
+    return querySnapshot;
   }
 
   Future<QuerySnapshot> _fetchMyInfo(myId) async {
-    final ab = await Firestore.instance
+    final querySnapshot = await Firestore.instance
         .collection('user')
         .where('uid', isEqualTo: myId)
         .getDocuments();
-    return ab;
+    return querySnapshot;
   }
 
   @override
@@ -32,47 +31,38 @@ class AllUserList extends StatelessWidget {
           }
           final myuid = futureSnapshot.data.uid;
           return FutureBuilder(
-              future: _fetchMyInfo(myuid),
-              builder: (ctx, mySnapshot) {
-                if (mySnapshot.connectionState == ConnectionState.waiting) {
-                  return Center(child: CircularProgressIndicator());
+              future: Future.wait([_fetchMyInfo(myuid), _fetchAlluser()]),
+              builder: (ctx, AsyncSnapshot<List<QuerySnapshot>> snapshot) {
+                if (!snapshot.hasData) {
+                  return Padding(
+                    padding: EdgeInsets.all(0),
+                  );
                 }
-                final myName = mySnapshot.data.documents[0]['username'];
-                final myImage = mySnapshot.data.documents[0]['image_url'];
-                return FutureBuilder(
-                    future: _fetchAlluser(),
-                    builder: (ctx, userSnapshot) {
-                      if (userSnapshot.connectionState ==
-                          ConnectionState.waiting) {
-                        return Center(
-                          child: Center(child: CircularProgressIndicator()),
-                        );
-                      }
-                      final userDoc = userSnapshot.data.documents;
-                      return SingleChildScrollView(
-                        physics: NeverScrollableScrollPhysics(),
-                        child: Column(
-                          children: [
-                            Container(
-                              child: ListView.builder(
-                                itemCount: userDoc.length,
-                                itemBuilder: (ctx, index) => UserCard(
-                                  userDoc[index]['uid'],
-                                  userDoc[index]['username'],
-                                  userDoc[index]['image_url'],
-                                  myuid,
-                                  myName,
-                                  myImage,
-                                  userDoc[index]['uid'] == myuid,
-                                ),
-                                shrinkWrap: true,
-                              ),
-                            ),
-                            // Text(mySnapshot.data.documents[0]['username'])
-                          ],
+                final myName = snapshot.data[0].documents[0]['username'];
+                final myImage = snapshot.data[0].documents[0]['image_url'];
+                final userDoc = snapshot.data[1].documents;
+                return SingleChildScrollView(
+                  physics: NeverScrollableScrollPhysics(),
+                  child: Column(
+                    children: [
+                      Container(
+                        child: ListView.builder(
+                          itemCount: userDoc.length,
+                          itemBuilder: (ctx, index) => UserCard(
+                            userDoc[index]['uid'],
+                            userDoc[index]['username'],
+                            userDoc[index]['image_url'],
+                            myuid,
+                            myName,
+                            myImage,
+                            userDoc[index]['uid'] == myuid,
+                          ),
+                          shrinkWrap: true,
                         ),
-                      );
-                    });
+                      ),
+                    ],
+                  ),
+                );
               });
         });
   }

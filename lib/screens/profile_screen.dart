@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/users/profile.dart';
+import '../widgets/profile/profile.dart';
 
 class ProfileScreen extends StatelessWidget {
   static final routeName = '/profile_screen';
