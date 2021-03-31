@@ -13,6 +13,7 @@ class AllUserScreen extends StatelessWidget {
       ),
       drawer: AppDrawer(),
       body: AllUserList(),
+      // floatingActionButton: FloatingActionButton(onPressed: () {}),
     );
   }
 }

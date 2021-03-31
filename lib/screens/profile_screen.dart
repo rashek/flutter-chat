@@ -1,4 +1,6 @@
+import 'package:chat/screens/add_post_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:animations/animations.dart';
 
 import '../widgets/profile/profile.dart';
 
@@ -14,6 +16,19 @@ class ProfileScreen extends StatelessWidget {
         appBar: AppBar(
           title: Text(name),
         ),
-        body: Profile());
+        body: Profile(),
+        floatingActionButton: OpenContainer(
+          closedBuilder: (context, openWidget) {
+            return FloatingActionButton(
+              // foregroundColor: Colors.white,
+              backgroundColor: Colors.white,
+              child: Text("ADD"),
+              onPressed: openWidget,
+            );
+          },
+          openBuilder: (context, closedWidget) {
+            return AddPost();
+          },
+        ));
   }
 }

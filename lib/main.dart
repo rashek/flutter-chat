@@ -23,12 +23,13 @@ class MyApp extends StatelessWidget {
           backgroundColor: Colors.greenAccent[200],
           accentColor: Colors.greenAccent[200],
           accentColorBrightness: Brightness.dark,
-          buttonTheme: ButtonTheme.of(context).copyWith(
-              buttonColor: Colors.greenAccent[400],
-              textTheme: ButtonTextTheme.primary,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
-              )),
+          // buttonTheme: ButtonTheme.of(context).copyWith(
+          // buttonColor: Colors.greenAccent[400],
+          // textTheme: ButtonTextTheme.primary,
+          // shape: RoundedRectangleBorder(
+          //   borderRadius: BorderRadius.circular(20),
+          // )
+          //     ),
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         home: StreamBuilder(
