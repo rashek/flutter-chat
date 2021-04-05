@@ -28,18 +28,6 @@ class UserDtails extends StatelessWidget {
                   style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                 ),
               ),
-              Center(
-                child: ElevatedButton(
-                  onPressed: () {},
-                  child: Text('add'),
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.red[200],
-                    onPrimary: Colors.white70,
-                    // minimumSize: Size(500, 100),
-                    side: BorderSide(width: 5),
-                  ),
-                ),
-              )
             ],
           ),
         ),

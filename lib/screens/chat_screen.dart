@@ -37,6 +37,7 @@ class ChatScreen extends StatelessWidget {
           ],
         ),
       ),
+      // floatingActionButton: FloatingActionButton(onPressed: () {}),
     );
   }
 }
