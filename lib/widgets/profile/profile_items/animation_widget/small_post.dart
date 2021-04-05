@@ -31,7 +31,9 @@ class SmallPost extends StatelessWidget {
           ),
           Padding(
             padding: EdgeInsets.all(20),
-            child: Text(postDescription.substring(0, 60) + '...'),
+            child: Text(postDescription.length > 60
+                ? postDescription.substring(0, 60) + '...'
+                : postDescription),
           ),
         ],
       ),

@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 
 class AddPostScreen extends StatelessWidget {
   final String id;
-  AddPostScreen(this.id);
+  final String name;
+  AddPostScreen(this.id, this.name);
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +12,7 @@ class AddPostScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('Add Post'),
       ),
-      body: AddPost(id),
+      body: AddPost(id, name),
     );
   }
 }

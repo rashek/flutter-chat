@@ -32,7 +32,7 @@ class ProfileScreen extends StatelessWidget {
             );
           },
           openBuilder: (context, closedWidget) {
-            return AddPostScreen(id);
+            return AddPostScreen(id, name);
           },
         ));
   }

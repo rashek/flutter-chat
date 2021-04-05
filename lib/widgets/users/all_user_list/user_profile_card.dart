@@ -28,16 +28,52 @@ class UserCard extends StatefulWidget {
 class _UserCardState extends State<UserCard> {
   void _sendRequest(check) async {
     if (check) {
-      await Firestore.instance
-          .collection('user')
-          .document(widget.userId)
-          .collection('requests')
-          .document(widget.myId)
-          .setData({
-        'uid': widget.myId,
-        'username': widget.myName,
-        'image_url': widget.myImage,
-      });
+      showDialog<void>(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) {
+            return AlertDialog(
+                backgroundColor: Theme.of(context).primaryColor,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20)),
+                elevation: 24.0,
+                title: Text(
+                  'Are you sure to send a request',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                      color: Colors.white),
+                ),
+                content: Text(
+                  'Press yes to continue or no to cancel',
+                  style: TextStyle(color: Colors.white),
+                ),
+                actions: [
+                  TextButton(
+                      child: Text('No',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white)),
+                      onPressed: () => Navigator.of(context).pop()),
+                  TextButton(
+                      child: Text('Yes',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white)),
+                      onPressed: () async {
+                        await Firestore.instance
+                            .collection('user')
+                            .document(widget.userId)
+                            .collection('requests')
+                            .document(widget.myId)
+                            .setData({
+                          'uid': widget.myId,
+                          'username': widget.myName,
+                          'image_url': widget.myImage,
+                        });
+                      }),
+                ]);
+          });
     } else if (!check) {
       await Firestore.instance
           .collection('user')

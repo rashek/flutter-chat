@@ -7,14 +7,15 @@ import '../picker/post_image_picker.dart';
 
 class AddPost extends StatefulWidget {
   final String Id;
-  AddPost(this.Id);
+  final String name;
+  AddPost(this.Id, this.name);
   @override
   _AddPostState createState() => _AddPostState();
 }
 
 class _AddPostState extends State<AddPost> {
   final _form = GlobalKey<FormState>();
-  String description;
+  String description = '';
   File _postImageFile;
 
   void _pickedImage(File image) {
@@ -22,46 +23,113 @@ class _AddPostState extends State<AddPost> {
   }
 
   void _onSubmit() async {
-    if (_postImageFile == null || description.length == 0) {
-      showAboutDialog(context: context, children: [Text('need an Image')]);
+    _form.currentState.save();
+    if (_postImageFile == null || description.isEmpty == true) {
+      showDialog(
+          context: context,
+          builder: (ctx) {
+            return Dialog(
+              child: Container(
+                height: 200,
+                child: Center(
+                    child: Text(
+                  _postImageFile == null
+                      ? 'Please Insert an Image'
+                      : 'Please Add A Description',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                )),
+              ),
+            );
+          });
+      return;
     }
-    final ref = FirebaseStorage.instance
-        .ref()
-        .child('post_image')
-        .child('.user.uid' + '.jpg');
-    await ref.putFile(_postImageFile).onComplete;
-    final url = await ref.getDownloadURL();
-    await Firestore.instance
-        .collection('user')
-        .document(widget.Id)
-        .collection('posts')
-        .document()
-        .setData({'post_description': description, 'post_img': url});
-    Navigator.of(context).pop();
+    showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Theme.of(context).primaryColor,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          elevation: 24.0,
+          title: Text(
+            'Are you sure',
+            style: TextStyle(
+                fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white),
+          ),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: [
+                Text(
+                  'Press ok to continue or cancel',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ],
+            ),
+          ),
+          actions: [
+            TextButton(
+              child: Text(
+                'Cancel',
+                style:
+                    TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: Text(
+                'Ok',
+                style:
+                    TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+              ),
+              onPressed: () async {
+                final ref = FirebaseStorage.instance
+                    .ref()
+                    .child('post_image')
+                    .child('.user.uid' + '.jpg');
+                await ref.putFile(_postImageFile).onComplete;
+                final url = await ref.getDownloadURL();
+                await Firestore.instance
+                    .collection('user')
+                    .document(widget.Id)
+                    .collection('posts')
+                    .document()
+                    .setData({
+                  'post_creator': widget.name,
+                  'post_description': description,
+                  'post_img': url
+                });
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Form(
       key: _form,
-      child: ListView(
+      child: Column(
         children: [
           PostImagePicker(_pickedImage),
           TextFormField(
-            // initialValue: _initValue['description'],
-            decoration: InputDecoration(labelText: 'Description'),
-            maxLines: 3,
-            keyboardType: TextInputType.text,
-            // focusNode: _descriptionFocusNode,
-            validator: (value) {
-              if (value.isEmpty) {
-                return 'Please enter a value';
-              }
-              if (value.length < 10) {
-                return 'Please enter at least 10 charecter';
-              }
-              return null;
-            },
+            key: ValueKey('username'),
+            // validator: (value) {
+            //   if (value.isEmpty || value.length < 4) {
+            //     return 'User name must be 4 charecters atleast.';
+            //   }
+            //   return null;
+            // },
+            decoration: InputDecoration(labelText: 'Username'),
             onSaved: (value) {
               description = value;
             },

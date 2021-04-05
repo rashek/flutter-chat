@@ -45,7 +45,8 @@ class NotificationList extends StatelessWidget {
                         );
                       }
                       final userDoc = userSnapshot.data.documents;
-                      if (userDoc.length == 0) return Text("No Notification");
+                      if (userDoc.length == 0)
+                        return Center(child: Text("No Notification"));
                       return SingleChildScrollView(
                         physics: NeverScrollableScrollPhysics(),
                         child: Column(

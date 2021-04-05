@@ -8,12 +8,12 @@ class Posts extends StatelessWidget {
   Posts(this.Id);
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-        future: Firestore.instance
+    return StreamBuilder(
+        stream: Firestore.instance
             .collection('user')
             .document(Id)
             .collection('posts')
-            .getDocuments(),
+            .snapshots(),
         builder: (ctx, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
