@@ -3,19 +3,19 @@ import 'package:flutter/material.dart';
 
 class MessageBubble extends StatelessWidget {
   final String message;
-  final bool isMe;
+  final String isMe;
+  final String userId;
   final String name;
   final String image;
   // final String myName;
   // final String myImage;
-  // final String peerName;
   // final String peerImage;
   MessageBubble(
     this.message,
     this.isMe,
+    this.userId,
     this.name,
     this.image,
-    // this.myName,
     // this.myImage,
     // this.peerImage,
     // this.peerName,
@@ -28,19 +28,24 @@ class MessageBubble extends StatelessWidget {
     return Stack(
       children: [
         Row(
-            mainAxisAlignment:
-                isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
+            mainAxisAlignment: isMe == userId
+                ? MainAxisAlignment.end
+                : MainAxisAlignment.start,
             children: [
               Container(
                 decoration: BoxDecoration(
-                  color: isMe ? Colors.greenAccent : Colors.greenAccent[400],
+                  color: isMe == userId
+                      ? Colors.greenAccent
+                      : Colors.greenAccent[400],
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(12),
                     topRight: Radius.circular(12),
-                    bottomLeft:
-                        !isMe ? Radius.circular(0) : Radius.circular(12),
-                    bottomRight:
-                        isMe ? Radius.circular(0) : Radius.circular(12),
+                    bottomLeft: !(isMe == userId)
+                        ? Radius.circular(0)
+                        : Radius.circular(12),
+                    bottomRight: isMe == userId
+                        ? Radius.circular(0)
+                        : Radius.circular(12),
                   ),
                 ),
                 width: 140,
@@ -50,8 +55,9 @@ class MessageBubble extends StatelessWidget {
                 ),
                 margin: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
                 child: Column(
-                  crossAxisAlignment:
-                      isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+                  crossAxisAlignment: isMe == userId
+                      ? CrossAxisAlignment.end
+                      : CrossAxisAlignment.start,
                   children: [
                     Text(
                       name,
@@ -62,7 +68,8 @@ class MessageBubble extends StatelessWidget {
                     Text(
                       message,
                       style: TextStyle(color: Colors.black),
-                      textAlign: isMe ? TextAlign.end : TextAlign.start,
+                      textAlign:
+                          isMe == userId ? TextAlign.end : TextAlign.start,
                     ),
                   ],
                 ),
@@ -70,8 +77,8 @@ class MessageBubble extends StatelessWidget {
             ]),
         Positioned(
           // top: -10,
-          left: isMe ? null : 120,
-          right: isMe ? 120 : null,
+          left: isMe == userId ? null : 120,
+          right: isMe == userId ? 120 : null,
           child: CircleAvatar(
             backgroundImage:
                 //isMe ? NetworkImage(peerImage) : NetworkImage(myImage),

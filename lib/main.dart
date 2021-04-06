@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
         routes: {
           MainTabScreen.routeName: (ctx) => MainTabScreen(),
           ChatScreen.routeName: (ctx) => ChatScreen(),
-          NewMessage.routeName: (ctx) => NewMessage(),
+          // NewMessage.routeName: (ctx) => NewMessage(),
           ProfileScreen.routeName: (ctx) => ProfileScreen(),
           AllUserScreen.routeName: (ctx) => AllUserScreen(),
         });
