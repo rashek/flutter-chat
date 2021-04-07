@@ -16,7 +16,7 @@ class _NewMessageState extends State<NewMessage> {
 
   void _sendreq(
       String chatId, String message, String userId, String peerId) async {
-    if (widget.chatStatus) {
+    if (!widget.chatStatus) {
       await Firestore.instance
           .collection('massage_data')
           .document(userId)
@@ -38,7 +38,7 @@ class _NewMessageState extends State<NewMessage> {
         .setData({
       'text': _enteredMessaged,
       'createdAt': Timestamp.now(),
-      'isMe': userId
+      'sender_id': userId
     });
   }
 
@@ -47,9 +47,7 @@ class _NewMessageState extends State<NewMessage> {
     final routeArgs =
         ModalRoute.of(context).settings.arguments as Map<String, String>;
     final myId = routeArgs['myId'];
-    // final myName = routeArgs['my_name'];
     final peerId = routeArgs['peerId'];
-    // final peerName = routeArgs['peer_name'];
 
     _sendreq(widget.chatId, _enteredMessaged, myId, peerId);
     _controller.clear();

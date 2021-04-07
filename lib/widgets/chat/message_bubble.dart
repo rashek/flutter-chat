@@ -3,47 +3,39 @@ import 'package:flutter/material.dart';
 
 class MessageBubble extends StatelessWidget {
   final String message;
-  final String isMe;
-  final String userId;
-  final String name;
-  final String image;
-  // final String myName;
-  // final String myImage;
-  // final String peerImage;
+  final String senderId;
   MessageBubble(
     this.message,
-    this.isMe,
-    this.userId,
-    this.name,
-    this.image,
-    // this.myImage,
-    // this.peerImage,
-    // this.peerName,
+    this.senderId,
   );
   @override
   Widget build(BuildContext context) {
     final routeArgs =
         ModalRoute.of(context).settings.arguments as Map<String, String>;
-    final testingid = routeArgs['myId'];
+    final myId = routeArgs['myId'];
+    final myName = routeArgs['my_name'];
+    final myImage = routeArgs['my_image'];
+    final peerName = routeArgs['peer_name'];
+    final peerImage = routeArgs['peer_image'];
     return Stack(
       children: [
         Row(
-            mainAxisAlignment: isMe == userId
+            mainAxisAlignment: senderId == myId
                 ? MainAxisAlignment.end
                 : MainAxisAlignment.start,
             children: [
               Container(
                 decoration: BoxDecoration(
-                  color: isMe == userId
+                  color: senderId == myId
                       ? Colors.greenAccent
                       : Colors.greenAccent[400],
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(12),
                     topRight: Radius.circular(12),
-                    bottomLeft: !(isMe == userId)
+                    bottomLeft: !(senderId == myId)
                         ? Radius.circular(0)
                         : Radius.circular(12),
-                    bottomRight: isMe == userId
+                    bottomRight: senderId == myId
                         ? Radius.circular(0)
                         : Radius.circular(12),
                   ),
@@ -55,13 +47,12 @@ class MessageBubble extends StatelessWidget {
                 ),
                 margin: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
                 child: Column(
-                  crossAxisAlignment: isMe == userId
+                  crossAxisAlignment: senderId == myId
                       ? CrossAxisAlignment.end
                       : CrossAxisAlignment.start,
                   children: [
                     Text(
-                      name,
-                      //isMe ? peerName : myName,
+                      senderId == myId ? myName : peerName,
                       style: TextStyle(
                           fontWeight: FontWeight.bold, color: Colors.blue[900]),
                     ),
@@ -69,7 +60,7 @@ class MessageBubble extends StatelessWidget {
                       message,
                       style: TextStyle(color: Colors.black),
                       textAlign:
-                          isMe == userId ? TextAlign.end : TextAlign.start,
+                          senderId == myId ? TextAlign.end : TextAlign.start,
                     ),
                   ],
                 ),
@@ -77,12 +68,13 @@ class MessageBubble extends StatelessWidget {
             ]),
         Positioned(
           // top: -10,
-          left: isMe == userId ? null : 120,
-          right: isMe == userId ? 120 : null,
+          left: senderId == myId ? null : 120,
+          right: senderId == myId ? 120 : null,
           child: CircleAvatar(
-            backgroundImage:
-                //isMe ? NetworkImage(peerImage) : NetworkImage(myImage),
-                NetworkImage(image),
+            backgroundImage: senderId == myId
+                ? NetworkImage(myImage)
+                : NetworkImage(peerImage),
+            // NetworkImage(image),
           ),
         ),
       ],
