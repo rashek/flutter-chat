@@ -5,38 +5,51 @@ class NewMessage extends StatefulWidget {
   static final routeName = '/new-message';
   @override
   _NewMessageState createState() => _NewMessageState();
+  final String chatId;
+  final bool chatStatus;
+  NewMessage(this.chatId, this.chatStatus);
 }
 
 class _NewMessageState extends State<NewMessage> {
   final _controller = new TextEditingController();
   var _enteredMessaged = '';
 
-  void _sendreq(String nameval1, String nameval2, String idval1, String idval2,
-      String message, bool isMe) {
-    Firestore.instance
-        .collection('messages')
-        .document(nameval1)
-        .collection(idval1)
-        .document(nameval2)
-        .collection(idval2)
-        .add({
+  void _sendreq(
+      String chatId, String message, String userId, String peerId) async {
+    if (!widget.chatStatus) {
+      await Firestore.instance
+          .collection('massage_data')
+          .document(userId)
+          .collection(peerId)
+          .document()
+          .setData({'chat_id': chatId});
+      await Firestore.instance
+          .collection('massage_data')
+          .document(peerId)
+          .collection(userId)
+          .document()
+          .setData({'chat_id': chatId});
+    }
+    await Firestore.instance
+        .collection('chats')
+        .document(chatId)
+        .collection('chat')
+        .document()
+        .setData({
       'text': _enteredMessaged,
       'createdAt': Timestamp.now(),
-      'isMe': isMe
+      'sender_id': userId
     });
   }
 
   void _sendMessage() async {
-    bool isMe = true;
     FocusScope.of(context).unfocus();
     final routeArgs =
         ModalRoute.of(context).settings.arguments as Map<String, String>;
     final myId = routeArgs['myId'];
-    final myName = routeArgs['my_name'];
     final peerId = routeArgs['peerId'];
-    final peerName = routeArgs['peer_name'];
-    _sendreq(myName, peerName, myId, peerId, _enteredMessaged, isMe);
-    _sendreq(peerName, myName, peerId, myId, _enteredMessaged, !isMe);
+
+    _sendreq(widget.chatId, _enteredMessaged, myId, peerId);
     _controller.clear();
   }
 

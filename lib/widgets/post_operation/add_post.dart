@@ -91,7 +91,8 @@ class _AddPostState extends State<AddPost> {
                 final ref = FirebaseStorage.instance
                     .ref()
                     .child('post_image')
-                    .child('.user.uid' + '.jpg');
+                    .child(widget.name + widget.Id)
+                    .child(DateTime.now().toString() + '.jpg');
                 await ref.putFile(_postImageFile).onComplete;
                 final url = await ref.getDownloadURL();
                 await Firestore.instance
