@@ -1,0 +1,355 @@
+[33mcommit d8ae8d3d55dfffde878465133a05225d6669b13d[m[33m ([m[1;36mHEAD -> [m[1;32mhome[m[33m, [m[1;31morigin/home[m[33m)[m
+Author: rashek <rashekhumayun@gmail.com>
+Date:   Wed Apr 7 14:02:27 2021 +0600
+
+    message system changed complete with storing message in single collection
+
+[33mcommit 2e711d228e1958fd3c0b74da549bfcc765ef4d7a[m
+Author: rashek <rashekhumayun@gmail.com>
+Date:   Tue Apr 6 20:16:17 2021 +0600
+
+    messageing method changed, listview inside column error is taking place, need to resolve that inside message.dart file
+
+[33mcommit 3ba9aefde3f60130b5a0d071c7164410337891af[m[33m ([m[1;31morigin/office[m[33m, [m[1;32moffice[m[33m)[m
+Merge: 485e7c2 3501201
+Author: rashek <rashekhumayun@gmail.com>
+Date:   Mon Apr 5 12:36:27 2021 +0600
+
+    Merge branch 'office' of https://github.com/rashek/flutter-chat into office
+
+[33mcommit 485e7c2174910786c7edb5b36ace25c3d94b9641[m
+Author: rashek <rashekhumayun@gmail.com>
+Date:   Mon Apr 5 12:35:25 2021 +0600
+
+    add post commit with alart
+
+[33mcommit 3501201c08323e86fb49f5c7b55e513331f350b1[m
+Merge: 57dfa91 35a4eea
+Author: Sadman662662 <52875395+Sadman662662@users.noreply.github.com>
+Date:   Mon Apr 5 10:52:30 2021 +0600
+
+    Merge branch 'office' of https://github.com/rashek/flutter-chat into office
+
+[33mcommit 57dfa91614fd36bda7e1825dd6f4f9b463746de3[m
+Author: Sadman662662 <52875395+Sadman662662@users.noreply.github.com>
+Date:   Mon Apr 5 10:52:26 2021 +0600
+
+    splash screen added
+
+[33mcommit 35a4eea21c0305e7d4c91062b797145b9f350a6f[m
+Author: rashek <rashekhumayun@gmail.com>
+Date:   Thu Apr 1 14:55:45 2021 +0600
+
+    Add post screen added still submit post has a bug, through null error
+
+[33mcommit 29d4312b7da69708f157557bc21d9b6728d1eec0[m
+Author: rashek <rashekhumayun@gmail.com>
+Date:   Wed Mar 31 15:17:02 2021 +0600
+
+    post animation added and working on add a post
+
+[33mcommit 261a361acd9828a5b3137efc9d1a132002aa37a2[m
+Merge: 1f32018 ae5c123
+Author: Sadman662662 <52875395+Sadman662662@users.noreply.github.com>
+Date:   Wed Mar 31 14:37:18 2021 +0600
+
+    Merge branch 'main' of https://github.com/rashek/flutter-chat into office
+
+[33mcommit 1f320186f7646e12bb296d348c396f5e40eab17b[m
+Merge: 4c0e4ee e6ce6d9
+Author: Sadman662662 <52875395+Sadman662662@users.noreply.github.com>
+Date:   Wed Mar 31 14:29:16 2021 +0600
+
+    Merge branch 'office' of https://github.com/rashek/flutter-chat into office
+
+[33mcommit 4c0e4ee5a7e1c15093ea21b977a6bad22f33d584[m
+Author: Sadman662662 <52875395+Sadman662662@users.noreply.github.com>
+Date:   Wed Mar 31 14:29:08 2021 +0600
+
+    pubspec restored
+
+[33mcommit e6ce6d9929c63a0af6e3e51b5f336c0fc2c4d97e[m
+Merge: a7fdd0c 489bcba
+Author: rashek <rashekhumayun@gmail.com>
+Date:   Mon Mar 29 15:11:09 2021 +0600
+
+    Merge branch 'office' of https://github.com/rashek/flutter-chat into office
+
+[33mcommit ae5c123817a443041c4f4a7c1943050b3dab5ea5[m[33m ([m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m)[m
+Merge: a7fdd0c e27d232
+Author: rashek <rashekhumayun@gmail.com>
+Date:   Mon Mar 29 15:08:05 2021 +0600
+
+    Merge branch 'main' of https://github.com/rashek/flutter-chat into main
+
+[33mcommit a7fdd0ca941570fd99faf097300fe2fdcb03e12b[m
+Author: rashek <rashekhumayun@gmail.com>
+Date:   Mon Mar 29 15:05:37 2021 +0600
+
+    post Screen added with dummy posts
+
+[33mcommit 489bcbaaf5569b8b7c68671a73d67460ca27940d[m
+Author: Sadman662662 <52875395+Sadman662662@users.noreply.github.com>
+Date:   Sun Mar 28 19:40:08 2021 +0600
+
+    splash screen added
+
+[33mcommit 3d895af9302642ce29c84e7f5c6076c2f3fd412b[m
+Merge: d04f479 34f57af
+Author: Sadman662662 <52875395+Sadman662662@users.noreply.github.com>
+Date:   Sun Mar 28 14:30:44 2021 +0600
+
+    Merge branch 'office' of https://github.com/rashek/flutter-chat into office
+
+[33mcommit d04f4790ed2f6a108e907dfc91f8ec73ab783b72[m
+Author: Sadman662662 <52875395+Sadman662662@users.noreply.github.com>
+Date:   Sun Mar 28 14:30:28 2021 +0600
+
+    pub
+
+[33mcommit 34f57af3bfd24b295b21f3f53e09cfd759bc8fb3[m
+Author: rashek <rashekhumayun@gmail.com>
+Date:   Sun Mar 28 14:24:33 2021 +0600
+
+    friend request handleing function refactored 2nd time
+
+[33mcommit 6c61937949d4a859807a8f6f2a0789b1660dc223[m
+Author: rashek <rashekhumayun@gmail.com>
+Date:   Sun Mar 28 12:30:26 2021 +0600
+
+    friend request handleing function refactored
+
+[33mcommit e27d232203b83a90c12e74c61c2ef333d1d296c9[m
+Merge: 8ab1de4 52f20b6
+Author: rashek <36367856+rashek@users.noreply.github.com>
+Date:   Thu Mar 25 14:59:40 2021 +0600
+
+    Merge pull request #6 from rashek/office
+    
+    friend list added
+
+[33mcommit 52f20b640bbb8b7aa2071197aac05f282b9d2c7b[m
+Author: rashek <rashekhumayun@gmail.com>
+Date:   Thu Mar 25 14:52:35 2021 +0600
+
+    friend list added
+
+[33mcommit 8ab1de43920d1fe28fabdcf3b961e51e4903603a[m
+Author: rashek <rashekhumayun@gmail.com>
+Date:   Thu Mar 25 13:53:17 2021 +0600
+
+    request sent and unsent to other user complete
+
+[33mcommit c48682dccb779cdc3e347f5e0000da0e8183ee05[m
+Author: rashek <rashekhumayun@gmail.com>
+Date:   Wed Mar 24 22:37:25 2021 +0600
+
+    request error fixed
+
+[33mcommit 629084bf15aad66750133b5e64b10ad8f2ec2883[m
+Merge: a535f9c 3a532e1
+Author: rashek <rashekhumayun@gmail.com>
+Date:   Wed Mar 24 22:17:14 2021 +0600
+
+    friend request send complete
+
+[33mcommit a535f9cdb75789f02eb2ed44e52daed8f80944ec[m
+Author: rashek <rashekhumayun@gmail.com>
+Date:   Wed Mar 24 18:52:53 2021 +0600
+
+    path modified
+
+[33mcommit 3a532e100c5bddf2deb657e3342e045fd185fe71[m
+Author: rashek <rashekhumayun@gmail.com>
+Date:   Wed Mar 24 15:03:01 2021 +0600
+
+    notificationa screen added userlist screen adde, sendrequest funtion is not working properly
+
+[33mcommit 4cd3dc40224b350734696295ba410a93e8898c64[m
+Author: rashek <rashekhumayun@gmail.com>
+Date:   Tue Mar 23 14:15:09 2021 +0600
+
+    user profile added, primary color accent color changed bottom navigation bar functional
+
+[33mcommit 05f4d159722b0b78156e75de12f8acdfa6d916ec[m
+Author: rashek <rashekhumayun@gmail.com>
+Date:   Sun Mar 21 15:17:04 2021 +0600
+
+    App drawer and bottom nav bar added
+
+[33mcommit 08462dd1dd00c39caf7ca30ee06db010254fcabe[m
+Merge: 4b0a9fa 0d1d67f
+Author: rashek <36367856+rashek@users.noreply.github.com>
+Date:   Fri Mar 19 00:01:41 2021 +0600
+
+    Merge pull request #4 from rashek/home
+    
+    Home
+
+[33mcommit 0d1d67f239ae3043cff71ed60478fadbb4682660[m
+Author: rashek <rashekhumayun@gmail.com>
+Date:   Fri Mar 19 00:00:21 2021 +0600
+
+    messages collection created with name specific collections
+
+[33mcommit 7358b9237f5475fc0d6b20c64dcab08bde416151[m
+Author: rashek <rashekhumayun@gmail.com>
+Date:   Thu Mar 18 23:52:12 2021 +0600
+
+    messages collection created with name specific collections
+
+[33mcommit 55717884b909cf39ec656e40315486a015670264[m
+Author: rashek <rashekhumayun@gmail.com>
+Date:   Thu Mar 18 15:32:49 2021 +0600
+
+    sending and receiving message complete
+
+[33mcommit 9d7bbc886588254d154ab56726923bcde319187d[m
+Author: rashek <rashekhumayun@gmail.com>
+Date:   Thu Mar 18 12:44:40 2021 +0600
+
+    order by implemented in message
+
+[33mcommit c20b938272cda1d1620304108086c86bd158b14d[m
+Author: rashek <rashekhumayun@gmail.com>
+Date:   Thu Mar 18 12:34:45 2021 +0600
+
+    conflict resolved
+
+[33mcommit 6fe2c08947146f972347e93e493f6a29b8e34cfa[m
+Merge: 865812c befa80a
+Author: rashek <rashekhumayun@gmail.com>
+Date:   Thu Mar 18 12:32:15 2021 +0600
+
+    conflict resolved
+
+[33mcommit befa80abe6123eb7d54a508b90732c65ae3db12d[m[33m ([m[1;31morigin/sadmanHome[m[33m)[m
+Merge: c46614b cc755be
+Author: Sadman662662 <52875395+Sadman662662@users.noreply.github.com>
+Date:   Thu Mar 18 12:27:34 2021 +0600
+
+    conflict resolved
+
+[33mcommit c46614bbb9ea9ee338dfeb402eece6be342d3503[m
+Author: Sadman662662 <52875395+Sadman662662@users.noreply.github.com>
+Date:   Thu Mar 18 11:22:04 2021 +0600
+
+    one to one message
+
+[33mcommit 865812c2b2aaf622947410aa03de6c88faec808c[m
+Author: rashek <rashekhumayun@gmail.com>
+Date:   Wed Mar 17 14:27:24 2021 +0600
+
+    one to one front end logic complete
+
+[33mcommit a89938527400f59036cc43365721f3544be64f13[m
+Author: Sadman662662 <52875395+Sadman662662@users.noreply.github.com>
+Date:   Tue Mar 16 18:02:09 2021 +0600
+
+    one to one chat done(ui designing left)
+    
+    messages are going between user to peers
+
+[33mcommit ee12f1208ea332b67e878dd5c9556ee9b6790234[m
+Author: rashek <rashekhumayun@gmail.com>
+Date:   Tue Mar 16 15:20:04 2021 +0600
+
+     gestur detector added to open one to one chat
+
+[33mcommit cc755bebfa1bf13613dc890ad59783b98541e883[m
+Author: Sadman662662 <52875395+Sadman662662@users.noreply.github.com>
+Date:   Tue Mar 16 14:14:40 2021 +0600
+
+    collection
+
+[33mcommit 4b0a9fab7f95ae3773bc78ad56a9138c655cf7e0[m
+Merge: de3e706 b037da1
+Author: rashek <36367856+rashek@users.noreply.github.com>
+Date:   Tue Mar 16 13:06:24 2021 +0600
+
+    Merge pull request #2 from rashek/office
+    
+    stream builder removed from myProfile and userList
+
+[33mcommit b037da1378fa0aeedfac77cbb393b7cb37942fa3[m
+Author: rashek <rashekhumayun@gmail.com>
+Date:   Tue Mar 16 13:01:53 2021 +0600
+
+    stream builder removed from myProfile and userList
+
+[33mcommit ae5b883ee590b80604477e4ab5f56a5d426795ac[m
+Author: Sadman662662 <52875395+Sadman662662@users.noreply.github.com>
+Date:   Mon Mar 15 21:57:51 2021 +0600
+
+    chatSCREEN added
+    
+    chat screen added when clicked on chat list
+
+[33mcommit de3e70636309dc7fee8f5407890cda846e746237[m
+Merge: 52b891f c21b563
+Author: rashek <36367856+rashek@users.noreply.github.com>
+Date:   Mon Mar 15 20:06:56 2021 +0600
+
+    Merge pull request #1 from rashek/home
+    
+    Home
+
+[33mcommit c21b563dca039ba28f963ef91efbf5f2f2843a78[m
+Author: rashek <rashekhumayun@gmail.com>
+Date:   Mon Mar 15 20:02:25 2021 +0600
+
+    warning fixed on set state. used another stream builder in my profile widget
+
+[33mcommit a2a8bbb08d33c7b418e6da1774d984f93534d7ec[m
+Author: rashek <rashekhumayun@gmail.com>
+Date:   Mon Mar 15 15:15:41 2021 +0600
+
+    Own Profile added to user list Screen
+
+[33mcommit 52b891f2b86674464eac3c54d44892e04433bf72[m
+Author: rashek <rashekhumayun@gmail.com>
+Date:   Sun Mar 14 20:12:19 2021 +0600
+
+    User Profile screen UI
+
+[33mcommit a8ba602bedf24534642116dc510a513df95e27cf[m
+Author: rashek <rashekhumayun@gmail.com>
+Date:   Sun Mar 14 19:26:51 2021 +0600
+
+    gmail error sorted
+
+[33mcommit 08ad10260967668b26d2c4651a2c70dda88629aa[m
+Author: rashek <rashekhumayun@gmail.com>
+Date:   Sun Mar 14 15:24:46 2021 +0600
+
+    User Screen added
+
+[33mcommit f5edba6866ceb7903e8b1b5f8ecd92a1b7573409[m
+Author: rashek <rashekhumayun@gmail.com>
+Date:   Sat Mar 13 19:45:33 2021 +0600
+
+    gmail login complete without shared preference
+
+[33mcommit 543158c2a20caf652ebbb3928e683cd8caecbf44[m
+Author: rashek <rashekhumayun@gmail.com>
+Date:   Thu Mar 11 15:21:17 2021 +0600
+
+    fianl
+
+[33mcommit da48f68fcb3d91d0c6e3ea8ba4a1754bdf40761b[m
+Author: rashek <rashekhumayun@gmail.com>
+Date:   Thu Mar 11 14:03:20 2021 +0600
+
+    fianl
+
+[33mcommit 5cc493d6a05a185a449f72f2565e3a9cdd282b80[m
+Author: rashek <rashekhumayun@gmail.com>
+Date:   Tue Mar 2 15:00:00 2021 +0600
+
+    avatar addition in progress
+
+[33mcommit 963e3f5a7b37a77eba1f7689f34caa3394ef7f02[m
+Author: unknown <rashek>
+Date:   Wed Feb 24 15:00:51 2021 +0600
+
+    Authentication done with firbaseauth, need to implement the changes on app ofter authenticate

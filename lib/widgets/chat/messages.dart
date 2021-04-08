@@ -30,7 +30,12 @@ class Messages extends StatelessWidget {
                 itemCount: chatDoc.length,
                 itemBuilder: (ctx, index) {
                   return MessageBubble(
-                    chatDoc[index]['text'],
+                    chatDoc[index]['text'] == null
+                        ? ''
+                        : chatDoc[index]['text'],
+                    chatDoc[index]['image_url'] == null
+                        ? ''
+                        : chatDoc[index]['image_url'],
                     chatDoc[index]['sender_id'],
                   );
                 });

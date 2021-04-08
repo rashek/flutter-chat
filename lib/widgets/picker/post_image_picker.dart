@@ -14,9 +14,9 @@ class _PostImagePickerState extends State<PostImagePicker> {
   void _pickImage() async {
     final picker = ImagePicker();
     final pickedImageFile = await picker.getImage(
-      source: ImageSource.camera,
-      imageQuality: 50,
-      maxWidth: 150,
+      source: ImageSource.gallery,
+      imageQuality: 100,
+      maxWidth: 500,
     );
     setState(() {
       _pickedImage = File(pickedImageFile.path);

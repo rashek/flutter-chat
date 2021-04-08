@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 
 class MessageBubble extends StatelessWidget {
   final String message;
+  final String image;
   final String senderId;
   MessageBubble(
     this.message,
+    this.image,
     this.senderId,
   );
   @override
@@ -56,12 +58,14 @@ class MessageBubble extends StatelessWidget {
                       style: TextStyle(
                           fontWeight: FontWeight.bold, color: Colors.blue[900]),
                     ),
-                    Text(
-                      message,
-                      style: TextStyle(color: Colors.black),
-                      textAlign:
-                          senderId == myId ? TextAlign.end : TextAlign.start,
-                    ),
+                    if (image.length != 0) Image.network(image),
+                    if (message.length != 0)
+                      Text(
+                        message,
+                        style: TextStyle(color: Colors.black),
+                        textAlign:
+                            senderId == myId ? TextAlign.end : TextAlign.start,
+                      ),
                   ],
                 ),
               ),
