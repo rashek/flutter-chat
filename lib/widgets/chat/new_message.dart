@@ -21,18 +21,18 @@ class _NewMessageState extends State<NewMessage> {
   void _sendreq(
       String chatId, String message, String userId, String peerId) async {
     if (!widget.chatStatus) {
-      await Firestore.instance
+      await FirebaseFirestore.instance
           .collection('massage_data')
-          .document(userId)
+          .doc(userId)
           .collection(peerId)
-          .document()
-          .setData({'chat_id': chatId});
-      await Firestore.instance
+          .doc()
+          .set({'chat_id': chatId});
+      await FirebaseFirestore.instance
           .collection('massage_data')
-          .document(peerId)
+          .doc(peerId)
           .collection(userId)
-          .document()
-          .setData({'chat_id': chatId});
+          .doc()
+          .set({'chat_id': chatId});
     }
     if (_pickImageFile != null) {
       final ref = FirebaseStorage.instance
@@ -40,14 +40,14 @@ class _NewMessageState extends State<NewMessage> {
           .child('chat_image')
           .child(userId)
           .child(DateTime.now().toString() + '.jpg');
-      await ref.putFile(_pickImageFile).onComplete;
+      await ref.putFile(_pickImageFile);
       final url = await ref.getDownloadURL();
-      await Firestore.instance
+      await FirebaseFirestore.instance
           .collection('chats')
-          .document(chatId)
+          .doc(chatId)
           .collection('chat')
-          .document()
-          .setData({
+          .doc()
+          .set({
         'image_url': url,
         'createdAt': Timestamp.now(),
         'sender_id': userId
@@ -57,12 +57,12 @@ class _NewMessageState extends State<NewMessage> {
       });
     }
     if (_enteredMessaged.length != 0)
-      await Firestore.instance
+      await FirebaseFirestore.instance
           .collection('chats')
-          .document(chatId)
+          .doc(chatId)
           .collection('chat')
-          .document()
-          .setData({
+          .doc()
+          .set({
         'text': _enteredMessaged,
         'createdAt': Timestamp.now(),
         'sender_id': userId

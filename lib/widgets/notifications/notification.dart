@@ -7,71 +7,63 @@ import 'notification_card.dart';
 
 class NotificationList extends StatelessWidget {
   Future<QuerySnapshot> _fetchMyInfo(myId) async {
-    final ab = await Firestore.instance
+    final ab = await FirebaseFirestore.instance
         .collection('user')
         .where('uid', isEqualTo: myId)
-        .getDocuments();
+        .get();
     return ab;
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: FirebaseAuth.instance.currentUser(),
-        builder: (ctx, futureSnapshot) {
-          if (futureSnapshot.connectionState == ConnectionState.waiting) {
+        future: _fetchMyInfo(FirebaseAuth.instance.currentUser.uid),
+        builder: (ctx, mySnapshot) {
+          if (mySnapshot.connectionState == ConnectionState.waiting) {
             return CircularProgressIndicator();
           }
-          final myuid = futureSnapshot.data.uid;
-          return FutureBuilder(
-              future: _fetchMyInfo(myuid),
-              builder: (ctx, mySnapshot) {
-                if (mySnapshot.connectionState == ConnectionState.waiting) {
-                  return CircularProgressIndicator();
+          final myName = mySnapshot.data.documents[0]['username'];
+          final myImage = mySnapshot.data.documents[0]['image_url'];
+          final myuid = FirebaseAuth.instance.currentUser.uid;
+          return StreamBuilder(
+              stream: FirebaseFirestore.instance
+                  .collection('user')
+                  .doc(myuid)
+                  .collection('requests')
+                  .snapshots(),
+              builder: (ctx, userSnapshot) {
+                if (userSnapshot.connectionState == ConnectionState.waiting) {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
                 }
-                final myName = mySnapshot.data.documents[0]['username'];
-                final myImage = mySnapshot.data.documents[0]['image_url'];
-                return StreamBuilder(
-                    stream: Firestore.instance
-                        .collection('user')
-                        .document(myuid)
-                        .collection('requests')
-                        .snapshots(),
-                    builder: (ctx, userSnapshot) {
-                      if (userSnapshot.connectionState ==
-                          ConnectionState.waiting) {
-                        return Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      }
-                      final userDoc = userSnapshot.data.documents;
-                      if (userDoc.length == 0)
-                        return Center(child: Text("No Notification"));
-                      return SingleChildScrollView(
-                        physics: NeverScrollableScrollPhysics(),
-                        child: Column(
-                          children: [
-                            // MyProfileCard(myuid, _fetchMyInfo),
-                            Container(
-                              child: ListView.builder(
-                                itemCount: userDoc.length,
-                                itemBuilder: (ctx, index) => NotificationCard(
-                                  userDoc[index]['uid'],
-                                  userDoc[index]['username'],
-                                  userDoc[index]['image_url'],
-                                  myuid,
-                                  myName,
-                                  myImage,
-                                  userDoc[index]['uid'] == myuid,
-                                ),
-                                shrinkWrap: true,
-                              ),
-                            ),
-                            // Text(mySnapshot.data.documents[0]['username'])
-                          ],
+                final userDoc = userSnapshot.data.documents;
+                if (userDoc.length == 0)
+                  return Center(child: Text("No Notification"));
+                return SingleChildScrollView(
+                  physics: NeverScrollableScrollPhysics(),
+                  child: Column(
+                    children: [
+                      // MyProfileCard(myuid, _fetchMyInfo),
+                      Container(
+                        child: ListView.builder(
+                          itemCount: userDoc.length,
+                          itemBuilder: (ctx, index) => NotificationCard(
+                            userDoc[index]['uid'],
+                            userDoc[index]['username'],
+                            userDoc[index]['image_url'],
+                            myuid,
+                            myName,
+                            myImage,
+                            userDoc[index]['uid'] == myuid,
+                          ),
+                          shrinkWrap: true,
                         ),
-                      );
-                    });
+                      ),
+                      // Text(mySnapshot.data.documents[0]['username'])
+                    ],
+                  ),
+                );
               });
         });
   }

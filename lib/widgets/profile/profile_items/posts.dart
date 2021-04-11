@@ -9,16 +9,16 @@ class Posts extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-        stream: Firestore.instance
+        stream: FirebaseFirestore.instance
             .collection('user')
-            .document(Id)
+            .doc(Id)
             .collection('posts')
             .snapshots(),
         builder: (ctx, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
           }
-          final postData = snapshot.data.documents;
+          final postData = snapshot.data.docs;
           if (postData.length == 0)
             return Center(
               child: Text('You have no post available'),

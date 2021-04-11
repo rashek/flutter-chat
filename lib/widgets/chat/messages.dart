@@ -12,9 +12,9 @@ class Messages extends StatelessWidget {
   Widget build(BuildContext context) {
     if (chatStatus)
       return StreamBuilder(
-          stream: Firestore.instance
+          stream: FirebaseFirestore.instance
               .collection('chats')
-              .document(chatId)
+              .doc(chatId)
               .collection('chat')
               .orderBy('createdAt', descending: true)
               .snapshots(),

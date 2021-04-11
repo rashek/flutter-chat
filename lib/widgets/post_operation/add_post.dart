@@ -93,14 +93,14 @@ class _AddPostState extends State<AddPost> {
                     .child('post_image')
                     .child(widget.name + widget.Id)
                     .child(DateTime.now().toString() + '.jpg');
-                await ref.putFile(_postImageFile).onComplete;
+                await ref.putFile(_postImageFile);
                 final url = await ref.getDownloadURL();
-                await Firestore.instance
+                await FirebaseFirestore.instance
                     .collection('user')
-                    .document(widget.Id)
+                    .doc(widget.Id)
                     .collection('posts')
-                    .document()
-                    .setData({
+                    .doc()
+                    .set({
                   'post_creator': widget.name,
                   'post_description': description,
                   'post_img': url

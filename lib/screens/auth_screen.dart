@@ -45,27 +45,27 @@ class _AuthScreenState extends State<AuthScreen> {
     bool islogin,
     BuildContext ctx,
   ) async {
-    AuthResult authResult;
+    UserCredential userCredential;
     try {
       setState(() {
         _isLoading = true;
       });
       if (islogin) {
-        authResult = await _auth.signInWithEmailAndPassword(
+        userCredential = await _auth.signInWithEmailAndPassword(
             email: email, password: password);
       } else {
-        authResult = await _auth.createUserWithEmailAndPassword(
+        userCredential = await _auth.createUserWithEmailAndPassword(
             email: email, password: password);
         final firebase_storage.Reference ref = firebase_storage
             .FirebaseStorage.instance
             .ref()
             .child('user_image')
-            .child(authResult.user.uid + '.jpg');
+            .child(userCredential.user.uid + '.jpg');
 
         await ref.putFile(image);
 
         final url = await ref.getDownloadURL();
-        _createUser(email, authResult.user.uid, username, url);
+        _createUser(email, userCredential.user.uid, username, url);
       }
     } on PlatformException catch (err) {
       var message = 'An error';

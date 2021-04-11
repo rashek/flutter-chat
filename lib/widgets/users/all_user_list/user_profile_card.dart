@@ -61,12 +61,12 @@ class _UserCardState extends State<UserCard> {
                               fontWeight: FontWeight.bold,
                               color: Colors.white)),
                       onPressed: () async {
-                        await Firestore.instance
+                        await FirebaseFirestore.instance
                             .collection('user')
-                            .document(widget.userId)
+                            .doc(widget.userId)
                             .collection('requests')
-                            .document(widget.myId)
-                            .setData({
+                            .doc(widget.myId)
+                            .set({
                           'uid': widget.myId,
                           'username': widget.myName,
                           'image_url': widget.myImage,
@@ -75,33 +75,33 @@ class _UserCardState extends State<UserCard> {
                 ]);
           });
     } else if (!check) {
-      await Firestore.instance
+      await FirebaseFirestore.instance
           .collection('user')
-          .document(widget.userId)
+          .doc(widget.userId)
           .collection('requests')
-          .document(widget.myId)
+          .doc(widget.myId)
           .delete();
     }
     setState(() {});
   }
 
   Future<QuerySnapshot> _checkRequest() async {
-    final ab = await Firestore.instance
+    final ab = await FirebaseFirestore.instance
         .collection('user')
-        .document(widget.userId)
+        .doc(widget.userId)
         .collection('requests')
         .where('uid', isEqualTo: widget.myId)
-        .getDocuments();
+        .get();
     return ab;
   }
 
   Future<QuerySnapshot> _checkFriendList() async {
-    final ab = await Firestore.instance
+    final ab = await FirebaseFirestore.instance
         .collection('user')
-        .document(widget.userId)
+        .doc(widget.userId)
         .collection('friend_list')
         .where('uid', isEqualTo: widget.myId)
-        .getDocuments();
+        .get();
     return ab;
   }
 
@@ -119,8 +119,8 @@ class _UserCardState extends State<UserCard> {
                 padding: EdgeInsets.all(0),
               );
             }
-            final checkRequest = snapshot.data[0].documents;
-            final checkFriend = snapshot.data[1].documents;
+            final checkRequest = snapshot.data[0].docs;
+            final checkFriend = snapshot.data[1].docs;
             return Card(
               margin: EdgeInsets.symmetric(
                 horizontal: 5,
