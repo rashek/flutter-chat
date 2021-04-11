@@ -123,14 +123,14 @@ class _AddPostState extends State<AddPost> {
         children: [
           PostImagePicker(_pickedImage),
           TextFormField(
-            key: ValueKey('username'),
+            key: ValueKey('description'),
             // validator: (value) {
             //   if (value.isEmpty || value.length < 4) {
             //     return 'User name must be 4 charecters atleast.';
             //   }
             //   return null;
             // },
-            decoration: InputDecoration(labelText: 'Username'),
+            decoration: InputDecoration(labelText: 'description'),
             onSaved: (value) {
               description = value;
             },

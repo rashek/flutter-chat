@@ -3,8 +3,11 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+// import 'package:firebase_storage/firebase_storage.dart';
 
 import '../widgets/auth_form/auth_form.dart';
 import '../widgets/auth_form/auth_gmail.dart';
@@ -17,6 +20,7 @@ class AuthScreen extends StatefulWidget {
 class _AuthScreenState extends State<AuthScreen> {
   var _isLoading = false;
   final _auth = FirebaseAuth.instance;
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   void _createUser(
     String email,
@@ -24,7 +28,8 @@ class _AuthScreenState extends State<AuthScreen> {
     String username,
     String url,
   ) async {
-    await Firestore.instance.collection('user').document(uid).setData({
+    WidgetsFlutterBinding.ensureInitialized();
+    await firestore.collection('user').doc(uid).set({
       'username': username,
       'email': email,
       'uid': uid,
@@ -51,12 +56,13 @@ class _AuthScreenState extends State<AuthScreen> {
       } else {
         authResult = await _auth.createUserWithEmailAndPassword(
             email: email, password: password);
-        final ref = FirebaseStorage.instance
+        final firebase_storage.Reference ref = firebase_storage
+            .FirebaseStorage.instance
             .ref()
             .child('user_image')
             .child(authResult.user.uid + '.jpg');
 
-        await ref.putFile(image).onComplete;
+        await ref.putFile(image);
 
         final url = await ref.getDownloadURL();
         _createUser(email, authResult.user.uid, username, url);

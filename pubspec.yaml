@@ -31,13 +31,15 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  cloud_firestore: ^0.13.5
-  firebase_core: ^0.4.4
-  firebase_auth: ^0.16.1
-  image_picker: ^0.6.7+22
-  firebase_storage: ^3.1.5
+  cloud_firestore: ^1.0.4
+  firebase_core: ^1.0.3
+  firebase_auth: ^1.0.2
+  image_picker: ^0.7.4
+  firebase_storage: ^8.0.2
   google_sign_in: ^4.5.3
   animations: ^2.0.0
+  # http: ^0.13.0
+  # cached_network_image: ^3.0.0
 
 
 
