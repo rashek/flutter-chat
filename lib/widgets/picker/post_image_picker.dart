@@ -14,9 +14,9 @@ class _PostImagePickerState extends State<PostImagePicker> {
   void _pickImage() async {
     final picker = ImagePicker();
     final pickedImageFile = await picker.getImage(
-      source: ImageSource.camera,
-      imageQuality: 50,
-      maxWidth: 150,
+      source: ImageSource.gallery,
+      imageQuality: 100,
+      maxWidth: 500,
     );
     setState(() {
       _pickedImage = File(pickedImageFile.path);
@@ -28,14 +28,11 @@ class _PostImagePickerState extends State<PostImagePicker> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
-          child: _pickedImage != null ? Image.file(_pickedImage) : null,
-        ),
-        // CircleAvatar(
-        //   radius: 40,
-        //   backgroundImage:
-        //       _pickedImage != null ? FileImage(_pickedImage) : null,
-        // ),
+        if (_pickedImage != null)
+          Container(
+            height: 200,
+            child: Image.file(_pickedImage),
+          ),
         FlatButton.icon(
           textColor: Theme.of(context).primaryColor,
           onPressed: _pickImage,

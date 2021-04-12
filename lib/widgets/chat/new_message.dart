@@ -1,5 +1,9 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+
+import '../picker/chat_image_picker.dart';
 
 class NewMessage extends StatefulWidget {
   static final routeName = '/new-message';
@@ -13,33 +17,60 @@ class NewMessage extends StatefulWidget {
 class _NewMessageState extends State<NewMessage> {
   final _controller = new TextEditingController();
   var _enteredMessaged = '';
-
+  String url = '';
+  File _pickImageFile;
   void _sendreq(
       String chatId, String message, String userId, String peerId) async {
     if (!widget.chatStatus) {
-      await Firestore.instance
+      await FirebaseFirestore.instance
           .collection('massage_data')
-          .document(userId)
+          .doc(userId)
           .collection(peerId)
-          .document()
-          .setData({'chat_id': chatId});
-      await Firestore.instance
+          .doc()
+          .set({'chat_id': chatId});
+      await FirebaseFirestore.instance
           .collection('massage_data')
-          .document(peerId)
+          .doc(peerId)
           .collection(userId)
-          .document()
-          .setData({'chat_id': chatId});
+          .doc()
+          .set({'chat_id': chatId});
     }
-    await Firestore.instance
+    if (_pickImageFile != null) {
+      final ref = FirebaseStorage.instance
+          .ref()
+          .child('chat_image')
+          .child(userId)
+          .child(DateTime.now().toString() + '.jpg');
+      await ref.putFile(_pickImageFile);
+      url = await ref.getDownloadURL();
+      // await FirebaseFirestore.instance
+      //     .collection('chats')
+      //     .doc(chatId)
+      //     .collection('chat')
+      //     .doc()
+      //     .set({
+      //   'image_url': url,
+      //   'createdAt': Timestamp.now(),
+      //   'sender_id': userId
+      // });
+
+    }
+    await FirebaseFirestore.instance
         .collection('chats')
-        .document(chatId)
+        .doc(chatId)
         .collection('chat')
-        .document()
-        .setData({
-      'text': _enteredMessaged,
+        .doc()
+        .set({
+      'text': _enteredMessaged.length == 0 ? '' : _enteredMessaged,
+      'image_url': url.length == 0 ? '' : url,
       'createdAt': Timestamp.now(),
       'sender_id': userId
     });
+  }
+
+  void _pickedImage(File image) {
+    _pickImageFile = image;
+    setState(() {});
   }
 
   void _sendMessage() async {
@@ -50,7 +81,9 @@ class _NewMessageState extends State<NewMessage> {
     final peerId = routeArgs['peerId'];
 
     _sendreq(widget.chatId, _enteredMessaged, myId, peerId);
+    _enteredMessaged = '';
     _controller.clear();
+    setState(() {});
   }
 
   @override
@@ -75,8 +108,12 @@ class _NewMessageState extends State<NewMessage> {
           icon: Icon(
             Icons.send,
           ),
-          onPressed: _enteredMessaged.trim().isEmpty ? null : _sendMessage,
-        )
+          onPressed:
+              _enteredMessaged.trim().length != 0 || _pickImageFile != null
+                  ? _sendMessage
+                  : null,
+        ),
+        ChatImagePicker(_pickedImage),
       ]),
     );
   }

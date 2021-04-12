@@ -93,14 +93,14 @@ class _AddPostState extends State<AddPost> {
                     .child('post_image')
                     .child(widget.name + widget.Id)
                     .child(DateTime.now().toString() + '.jpg');
-                await ref.putFile(_postImageFile).onComplete;
+                await ref.putFile(_postImageFile);
                 final url = await ref.getDownloadURL();
-                await Firestore.instance
+                await FirebaseFirestore.instance
                     .collection('user')
-                    .document(widget.Id)
+                    .doc(widget.Id)
                     .collection('posts')
-                    .document()
-                    .setData({
+                    .doc()
+                    .set({
                   'post_creator': widget.name,
                   'post_description': description,
                   'post_img': url
@@ -123,20 +123,18 @@ class _AddPostState extends State<AddPost> {
         children: [
           PostImagePicker(_pickedImage),
           TextFormField(
-            key: ValueKey('username'),
-            // validator: (value) {
-            //   if (value.isEmpty || value.length < 4) {
-            //     return 'User name must be 4 charecters atleast.';
-            //   }
-            //   return null;
-            // },
-            decoration: InputDecoration(labelText: 'Username'),
+            key: ValueKey('description'),
+            decoration: InputDecoration(labelText: 'description'),
             onSaved: (value) {
               description = value;
             },
           ),
           ElevatedButton(
             child: Text('Post'),
+            style: ElevatedButton.styleFrom(
+              primary: Theme.of(context).primaryColor, // background
+              onPrimary: Colors.white, // foreground
+            ),
             onPressed: _onSubmit,
           ),
         ],

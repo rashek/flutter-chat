@@ -34,9 +34,9 @@ class ChatScreen extends StatelessWidget {
                   );
                 })),
         body: StreamBuilder(
-            stream: Firestore.instance
+            stream: FirebaseFirestore.instance
                 .collection('massage_data')
-                .document(myId)
+                .doc(myId)
                 .collection(peerId)
                 .snapshots(),
             builder: (ctx, massageSnapshot) {
@@ -46,8 +46,8 @@ class ChatScreen extends StatelessWidget {
                 );
               }
               chatId = myId + peerId;
-              if (massageSnapshot.data.documents.length != 0) {
-                chatId = massageSnapshot.data.documents[0]['chat_id'];
+              if (massageSnapshot.data.docs.length != 0) {
+                chatId = massageSnapshot.data.docs[0]['chat_id'];
                 chatStatus = true;
               }
               return Container(

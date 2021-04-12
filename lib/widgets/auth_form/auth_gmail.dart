@@ -24,7 +24,7 @@ class _AuthGmailState extends State<AuthGmail> {
   bool isLoading = false;
 
   // @override
-  Future<FirebaseUser> handleSignIn() async {
+  Future<User> handleSignIn() async {
     setState(() {
       isLoading = true;
     });
@@ -34,20 +34,20 @@ class _AuthGmailState extends State<AuthGmail> {
       final GoogleSignInAuthentication googleAuth =
           await googleUser.authentication;
 
-      final AuthCredential credential = GoogleAuthProvider.getCredential(
+      final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
 
-      FirebaseUser fireUser =
+      User fireUser =
           (await firebaseAuth.signInWithCredential(credential)).user;
 
       if (fireUser != null) {
-        final QuerySnapshot result = await Firestore.instance
+        final QuerySnapshot result = await FirebaseFirestore.instance
             .collection('user')
             .where('uid', isEqualTo: fireUser.uid)
-            .getDocuments();
-        final List<DocumentSnapshot> documents = result.documents;
+            .get();
+        final List<DocumentSnapshot> documents = result.docs;
         // print(document.data.)
         if (documents.length == 0) {
           // Update data to server if new user
@@ -55,7 +55,7 @@ class _AuthGmailState extends State<AuthGmail> {
             fireUser.email,
             fireUser.uid,
             fireUser.displayName,
-            fireUser.photoUrl,
+            fireUser.photoURL,
           );
         }
         return fireUser;

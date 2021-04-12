@@ -19,12 +19,12 @@ class NotificationCard extends StatelessWidget {
     this.isMe,
   );
   void _addToFriendlist(idVal1, idVal2, username, imageurl) async {
-    await Firestore.instance
+    await FirebaseFirestore.instance
         .collection('user')
-        .document(idVal1)
+        .doc(idVal1)
         .collection('friend_list')
-        .document(idVal2)
-        .setData({
+        .doc(idVal2)
+        .set({
       'uid': idVal2,
       'username': username,
       'image_url': imageurl,
@@ -32,11 +32,11 @@ class NotificationCard extends StatelessWidget {
   }
 
   void _removeRequest() async {
-    await Firestore.instance
+    await FirebaseFirestore.instance
         .collection('user')
-        .document(myId)
+        .doc(myId)
         .collection('requests')
-        .document(peerId)
+        .doc(peerId)
         .delete();
   }
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class LargePost extends StatelessWidget {
   final String postCreator;
@@ -18,11 +19,22 @@ class LargePost extends StatelessWidget {
           children: [
             Stack(
               children: [
-                Image.network(
-                  postImage,
-                  height: 250,
-                  width: double.infinity,
-                  fit: BoxFit.cover,
+                CachedNetworkImage(
+                  imageUrl: postImage,
+                  height: 400,
+                  imageBuilder: (context, imageProvider) => Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: imageProvider,
+                        fit: BoxFit.cover,
+                        // colorFilter: ColorFilter.mode(
+                        //     Colors.red, BlendMode.colorBurn)
+                      ),
+                    ),
+                  ),
+                  placeholder: (context, url) =>
+                      Center(child: CircularProgressIndicator()),
+                  errorWidget: (context, url, error) => Icon(Icons.error),
                 ),
                 Positioned(
                   bottom: 20,

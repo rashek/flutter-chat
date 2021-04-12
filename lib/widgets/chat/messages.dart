@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -12,9 +14,9 @@ class Messages extends StatelessWidget {
   Widget build(BuildContext context) {
     if (chatStatus)
       return StreamBuilder(
-          stream: Firestore.instance
+          stream: FirebaseFirestore.instance
               .collection('chats')
-              .document(chatId)
+              .doc(chatId)
               .collection('chat')
               .orderBy('createdAt', descending: true)
               .snapshots(),
@@ -24,16 +26,26 @@ class Messages extends StatelessWidget {
                 child: CircularProgressIndicator(),
               );
             }
-            final chatDoc = chatSnapshot.data.documents;
-            return ListView.builder(
-                reverse: true,
-                itemCount: chatDoc.length,
-                itemBuilder: (ctx, index) {
-                  return MessageBubble(
-                    chatDoc[index]['text'],
-                    chatDoc[index]['sender_id'],
-                  );
-                });
+            final chatDoc = chatSnapshot.data.docs;
+            // print(chatDoc[0]['text']);
+            return
+                // Text(
+                //     chatDoc[0]['text'] == null ? 'null' : chatDoc[0]['text']);
+                // Text(chatDoc[0]['image_url']==null?'null':chatDoc[0]['imageU']);
+                ListView.builder(
+                    reverse: true,
+                    itemCount: chatDoc.length,
+                    itemBuilder: (ctx, index) {
+                      return MessageBubble(
+                        chatDoc[index]['text'] == null
+                            ? ''
+                            : chatDoc[index]['text'],
+                        chatDoc[index]['image_url'] == null
+                            ? ''
+                            : chatDoc[index]['image_url'],
+                        chatDoc[index]['sender_id'],
+                      );
+                    });
           });
 
     if (!chatStatus)
