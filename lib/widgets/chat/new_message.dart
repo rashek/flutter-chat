@@ -17,6 +17,7 @@ class NewMessage extends StatefulWidget {
 class _NewMessageState extends State<NewMessage> {
   final _controller = new TextEditingController();
   var _enteredMessaged = '';
+  String url = '';
   File _pickImageFile;
   void _sendreq(
       String chatId, String message, String userId, String peerId) async {
@@ -41,32 +42,30 @@ class _NewMessageState extends State<NewMessage> {
           .child(userId)
           .child(DateTime.now().toString() + '.jpg');
       await ref.putFile(_pickImageFile);
-      final url = await ref.getDownloadURL();
-      await FirebaseFirestore.instance
-          .collection('chats')
-          .doc(chatId)
-          .collection('chat')
-          .doc()
-          .set({
-        'image_url': url,
-        'createdAt': Timestamp.now(),
-        'sender_id': userId
-      });
-      setState(() {
-        _pickImageFile = null;
-      });
+      url = await ref.getDownloadURL();
+      // await FirebaseFirestore.instance
+      //     .collection('chats')
+      //     .doc(chatId)
+      //     .collection('chat')
+      //     .doc()
+      //     .set({
+      //   'image_url': url,
+      //   'createdAt': Timestamp.now(),
+      //   'sender_id': userId
+      // });
+
     }
-    if (_enteredMessaged.length != 0)
-      await FirebaseFirestore.instance
-          .collection('chats')
-          .doc(chatId)
-          .collection('chat')
-          .doc()
-          .set({
-        'text': _enteredMessaged,
-        'createdAt': Timestamp.now(),
-        'sender_id': userId
-      });
+    await FirebaseFirestore.instance
+        .collection('chats')
+        .doc(chatId)
+        .collection('chat')
+        .doc()
+        .set({
+      'text': _enteredMessaged.length == 0 ? '' : _enteredMessaged,
+      'image_url': url.length == 0 ? '' : url,
+      'createdAt': Timestamp.now(),
+      'sender_id': userId
+    });
   }
 
   void _pickedImage(File image) {

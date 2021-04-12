@@ -22,13 +22,13 @@ class NotificationList extends StatelessWidget {
           if (mySnapshot.connectionState == ConnectionState.waiting) {
             return CircularProgressIndicator();
           }
-          final myName = mySnapshot.data.documents[0]['username'];
-          final myImage = mySnapshot.data.documents[0]['image_url'];
+          final myName = mySnapshot.data.docs[0]['username'];
+          final myImage = mySnapshot.data.docs[0]['image_url'];
           final myuid = FirebaseAuth.instance.currentUser.uid;
           return StreamBuilder(
               stream: FirebaseFirestore.instance
                   .collection('user')
-                  .doc(myuid)
+                  .doc(FirebaseAuth.instance.currentUser.uid)
                   .collection('requests')
                   .snapshots(),
               builder: (ctx, userSnapshot) {
@@ -37,7 +37,7 @@ class NotificationList extends StatelessWidget {
                     child: CircularProgressIndicator(),
                   );
                 }
-                final userDoc = userSnapshot.data.documents;
+                final userDoc = userSnapshot.data.docs;
                 if (userDoc.length == 0)
                   return Center(child: Text("No Notification"));
                 return SingleChildScrollView(

@@ -124,12 +124,6 @@ class _AddPostState extends State<AddPost> {
           PostImagePicker(_pickedImage),
           TextFormField(
             key: ValueKey('description'),
-            // validator: (value) {
-            //   if (value.isEmpty || value.length < 4) {
-            //     return 'User name must be 4 charecters atleast.';
-            //   }
-            //   return null;
-            // },
             decoration: InputDecoration(labelText: 'description'),
             onSaved: (value) {
               description = value;
@@ -137,6 +131,10 @@ class _AddPostState extends State<AddPost> {
           ),
           ElevatedButton(
             child: Text('Post'),
+            style: ElevatedButton.styleFrom(
+              primary: Theme.of(context).primaryColor, // background
+              onPrimary: Colors.white, // foreground
+            ),
             onPressed: _onSubmit,
           ),
         ],

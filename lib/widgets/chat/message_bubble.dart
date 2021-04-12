@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-// import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class MessageBubble extends StatelessWidget {
   final String message;
@@ -58,7 +58,25 @@ class MessageBubble extends StatelessWidget {
                       style: TextStyle(
                           fontWeight: FontWeight.bold, color: Colors.blue[900]),
                     ),
-                    if (image.length != 0) Image.network(image),
+                    if (image.length != 0)
+                      CachedNetworkImage(
+                        imageUrl: image,
+                        height: 100,
+                        imageBuilder: (context, imageProvider) => Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: imageProvider,
+                              fit: BoxFit.cover,
+                              // colorFilter: ColorFilter.mode(
+                              //     Colors.red, BlendMode.colorBurn)
+                            ),
+                          ),
+                        ),
+                        placeholder: (context, url) =>
+                            CircularProgressIndicator(),
+                        errorWidget: (context, url, error) => Icon(Icons.error),
+                      ),
+                    // Image.network(image),
                     if (message.length != 0)
                       Text(
                         message,

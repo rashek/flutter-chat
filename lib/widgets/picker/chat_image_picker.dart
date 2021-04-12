@@ -15,8 +15,8 @@ class _ChatImagePickerState extends State<ChatImagePicker> {
     final picker = ImagePicker();
     final pickedImageFile = await picker.getImage(
       source: ImageSource.gallery,
-      imageQuality: 100,
-      maxWidth: 500,
+      imageQuality: 80,
+      maxWidth: 200,
     );
     setState(() {
       _pickedImage = File(pickedImageFile.path);
