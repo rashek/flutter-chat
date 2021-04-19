@@ -11,10 +11,23 @@ class ChatImagePicker extends StatefulWidget {
 
 class _ChatImagePickerState extends State<ChatImagePicker> {
   File _pickedImage;
-  void _pickImage() async {
+  void _pickImageFromGallery() async {
     final picker = ImagePicker();
     final pickedImageFile = await picker.getImage(
       source: ImageSource.gallery,
+      imageQuality: 80,
+      maxWidth: 200,
+    );
+    setState(() {
+      _pickedImage = File(pickedImageFile.path);
+    });
+    widget.imagePickerfn(_pickedImage);
+  }
+
+  void _pickImagFromCamera() async {
+    final picker = ImagePicker();
+    final pickedImageFile = await picker.getImage(
+      source: ImageSource.camera,
       imageQuality: 80,
       maxWidth: 200,
     );
@@ -42,9 +55,18 @@ class _ChatImagePickerState extends State<ChatImagePicker> {
           ),
         IconButton(
           // textColor: Theme.of(context).primaryColor,
-          onPressed: _pickImage,
+          onPressed: _pickImageFromGallery,
           icon: Icon(
             Icons.image,
+            color: Theme.of(context).primaryColor,
+          ),
+          // label: Text('Add Image'),
+        ),
+        IconButton(
+          // textColor: Theme.of(context).primaryColor,
+          onPressed: _pickImagFromCamera,
+          icon: Icon(
+            Icons.camera,
             color: Theme.of(context).primaryColor,
           ),
           // label: Text('Add Image'),
