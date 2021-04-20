@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ChatImagePicker extends StatefulWidget {
-  ChatImagePicker(this.imagePickerfn);
+  ChatImagePicker(this.imagePickerfn, this.imageClearfn);
   final void Function(File pickedImage) imagePickerfn;
+  final void Function() imageClearfn;
   @override
   _ChatImagePickerState createState() => _ChatImagePickerState();
 }
@@ -37,6 +38,12 @@ class _ChatImagePickerState extends State<ChatImagePicker> {
     widget.imagePickerfn(_pickedImage);
   }
 
+  void _clearImageFromDisplay() {
+    _pickedImage = null;
+    setState(() {});
+    widget.imageClearfn();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -44,9 +51,7 @@ class _ChatImagePickerState extends State<ChatImagePicker> {
         if (_pickedImage != null)
           GestureDetector(
             onTap: () {
-              setState(() {
-                _pickedImage = null;
-              });
+              _clearImageFromDisplay();
             },
             child: CircleAvatar(
               radius: 20,
