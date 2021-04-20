@@ -21,6 +21,7 @@ class _NewMessageState extends State<NewMessage> {
   File _pickImageFile;
   void _sendreq(
       String chatId, String message, String userId, String peerId) async {
+    // var messageitem=message;
     if (!widget.chatStatus) {
       await FirebaseFirestore.instance
           .collection('massage_data')
@@ -43,17 +44,6 @@ class _NewMessageState extends State<NewMessage> {
           .child(DateTime.now().toString() + '.jpg');
       await ref.putFile(_pickImageFile);
       url = await ref.getDownloadURL();
-      // await FirebaseFirestore.instance
-      //     .collection('chats')
-      //     .doc(chatId)
-      //     .collection('chat')
-      //     .doc()
-      //     .set({
-      //   'image_url': url,
-      //   'createdAt': Timestamp.now(),
-      //   'sender_id': userId
-      // });
-
     }
     await FirebaseFirestore.instance
         .collection('chats')
@@ -61,7 +51,7 @@ class _NewMessageState extends State<NewMessage> {
         .collection('chat')
         .doc()
         .set({
-      'text': _enteredMessaged.length == 0 ? '' : _enteredMessaged,
+      'text': message.length == 0 ? '' : message,
       'image_url': url.length == 0 ? '' : url,
       'createdAt': Timestamp.now(),
       'sender_id': userId
@@ -70,6 +60,11 @@ class _NewMessageState extends State<NewMessage> {
 
   void _pickedImage(File image) {
     _pickImageFile = image;
+    setState(() {});
+  }
+
+  void _clearImage() {
+    _pickImageFile = null;
     setState(() {});
   }
 
@@ -83,6 +78,7 @@ class _NewMessageState extends State<NewMessage> {
     _sendreq(widget.chatId, _enteredMessaged, myId, peerId);
     _enteredMessaged = '';
     _controller.clear();
+    _pickImageFile = null;
     setState(() {});
   }
 
@@ -113,7 +109,7 @@ class _NewMessageState extends State<NewMessage> {
                   ? _sendMessage
                   : null,
         ),
-        ChatImagePicker(_pickedImage),
+        ChatImagePicker(_pickedImage, _clearImage),
       ]),
     );
   }

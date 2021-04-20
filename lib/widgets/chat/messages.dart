@@ -19,6 +19,7 @@ class Messages extends StatelessWidget {
               .doc(chatId)
               .collection('chat')
               .orderBy('createdAt', descending: true)
+              .limit(10)
               .snapshots(),
           builder: (ctx, chatSnapshot) {
             if (chatSnapshot.connectionState == ConnectionState.waiting) {
