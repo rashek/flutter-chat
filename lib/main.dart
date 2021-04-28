@@ -7,8 +7,8 @@ import './screens/auth_screen.dart';
 import './screens/all_user_screen.dart';
 import './screens/profile_screen.dart';
 import './screens/chat_screen.dart';
-import 'screens/main_tab_screen.dart';
-import 'widgets/chat/new_message.dart';
+import './screens/requests_screen.dart';
+import 'screens/home_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -43,15 +43,17 @@ class MyApp extends StatelessWidget {
               return SplashScreen();
             }
             if (userSnapshot.hasData) {
-              return MainTabScreen();
+              return HomeScreen();
               // return ChatScreen();
             }
             return AuthScreen();
           },
         ),
         routes: {
-          MainTabScreen.routeName: (ctx) => MainTabScreen(),
+          HomeScreen.routeName: (ctx) => HomeScreen(),
+          // MainTabScreen.routeName: (ctx) => MainTabScreen(),
           ChatScreen.routeName: (ctx) => ChatScreen(),
+          RequestsScreen.routeName: (ctx) => RequestsScreen(),
           // NewMessage.routeName: (ctx) => NewMessage(),
           ProfileScreen.routeName: (ctx) => ProfileScreen(),
           AllUserScreen.routeName: (ctx) => AllUserScreen(),

@@ -18,7 +18,7 @@ class _MainTabScreenState extends State<MainTabScreen> {
 
   final List<Map<String, Object>> _pages = [
     {'page': FriendList(), 'title': 'Chat'},
-    {'page': NotificationList(), 'title': 'Notification'},
+    {'page': NotificationList(), 'title': 'Myposts'},
   ];
 
   int _selectPageIndex = 0;
