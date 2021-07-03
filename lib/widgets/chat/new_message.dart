@@ -40,7 +40,7 @@ class _NewMessageState extends State<NewMessage> {
       final ref = FirebaseStorage.instance
           .ref()
           .child('chat_image')
-          .child(userId)
+          .child(chatId)
           .child(DateTime.now().toString() + '.jpg');
       await ref.putFile(_pickImageFile);
       url = await ref.getDownloadURL();

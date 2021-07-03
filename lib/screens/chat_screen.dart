@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 import '../widgets/chat/messages.dart';
 import '../widgets/chat/new_message.dart';
@@ -21,18 +22,35 @@ class ChatScreen extends StatelessWidget {
     final peerImage = routeArgs['peer_image'];
     return Scaffold(
         appBar: AppBar(
-            title: InkWell(
-                child: Text(peerName),
-                onTap: () {
-                  Navigator.of(context).pushNamed(
-                    ProfileScreen.routeName,
-                    arguments: {
-                      'Id': peerId,
-                      'name': peerName,
-                      'image': peerImage,
-                    },
-                  );
-                })),
+          title: InkWell(
+              child: Text(peerName),
+              onTap: () {
+                Navigator.of(context).pushNamed(
+                  ProfileScreen.routeName,
+                  arguments: {
+                    'Id': peerId,
+                    'name': peerName,
+                    'image': peerImage,
+                  },
+                );
+              }),
+          actions: [
+            IconButton(
+                icon: Icon(Icons.delete_forever),
+                onPressed: () async {
+                  var chatId = myId + peerId;
+                  await FirebaseFirestore.instance
+                      .collection('chats')
+                      .doc(chatId)
+                      .delete();
+                  // await FirebaseStorage.instance
+                  //     .ref()
+                  //     .child('chat_image')
+                  //     .child(myId)
+                  //     .delete();
+                })
+          ],
+        ),
         body: StreamBuilder(
             stream: FirebaseFirestore.instance
                 .collection('massage_data')

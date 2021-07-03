@@ -38,6 +38,12 @@ class _MainTabScreenState extends State<MainTabScreen> {
       drawer: AppDrawer(),
       body: _pages[_selectPageIndex]['page'],
       bottomNavigationBar: UserBottomNavbar(_selectPage, _selectPageIndex),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        tooltip: 'Increment',
+        child: Icon(Icons.add),
+      ),
     );
   }
 }

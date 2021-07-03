@@ -1,3 +1,4 @@
+import 'package:chat/screens/main_tab_screen.dart';
 import 'package:chat/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -43,7 +44,7 @@ class MyApp extends StatelessWidget {
               return SplashScreen();
             }
             if (userSnapshot.hasData) {
-              return HomeScreen();
+              return MainTabScreen();
               // return ChatScreen();
             }
             return AuthScreen();
@@ -51,7 +52,7 @@ class MyApp extends StatelessWidget {
         ),
         routes: {
           HomeScreen.routeName: (ctx) => HomeScreen(),
-          // MainTabScreen.routeName: (ctx) => MainTabScreen(),
+          MainTabScreen.routeName: (ctx) => MainTabScreen(),
           ChatScreen.routeName: (ctx) => ChatScreen(),
           RequestsScreen.routeName: (ctx) => RequestsScreen(),
           // NewMessage.routeName: (ctx) => NewMessage(),
